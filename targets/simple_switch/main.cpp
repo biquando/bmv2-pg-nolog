@@ -29,6 +29,10 @@
 
 #include "simple_switch.h"
 
+#include <csignal>
+#include <cstdlib>
+#include <iostream>
+
 namespace {
 SimpleSwitch *simple_switch;
 }  // namespace
@@ -37,8 +41,14 @@ namespace sswitch_runtime {
 shared_ptr<SimpleSwitchIf> get_handler(SimpleSwitch *sw);
 }  // namespace sswitch_runtime
 
+void exit_sig_handler(int signum) {
+  std::cout << "received signal: exiting...\n";
+  exit(0);
+}
+
 int
 main(int argc, char* argv[]) {
+  signal(SIGUSR1, exit_sig_handler);
   bm::TargetParserBasicWithDynModules simple_switch_parser;
   simple_switch_parser.add_flag_option(
       "enable-swap",

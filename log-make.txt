@@ -1,0 +1,1291 @@
+make  all-recursive
+make[1]: Entering directory '/home/p4/src/bmv2-pg-nolog'
+Making all in thrift_src
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog/thrift_src'
+/usr/local/bin/thrift -out ./gen-cpp/bm --gen cpp -r ./standard.thrift
+/usr/local/bin/thrift -o . --gen py -r ./standard.thrift
+/usr/local/bin/thrift -out ./gen-cpp/bm --gen cpp -r ./simple_pre.thrift
+/usr/local/bin/thrift -o . --gen py -r ./simple_pre.thrift
+/usr/local/bin/thrift -out ./gen-cpp/bm --gen cpp -r ./simple_pre_lag.thrift
+/usr/local/bin/thrift -o . --gen py -r ./simple_pre_lag.thrift
+touch gen-cpp/bm/standard_constants.cpp gen-cpp/bm/standard_constants.h gen-cpp/bm/Standard.cpp gen-cpp/bm/Standard.h gen-cpp/bm/standard_types.cpp gen-cpp/bm/standard_types.h gen-cpp/bm/simple_pre_consta
+nts.cpp gen-cpp/bm/simple_pre_constants.h gen-cpp/bm/SimplePre.cpp gen-cpp/bm/SimplePre.h gen-cpp/bm/simple_pre_types.cpp gen-cpp/bm/simple_pre_types.h gen-cpp/bm/simple_pre_lag_constants.cpp gen-cpp/bm/s
+imple_pre_lag_constants.h gen-cpp/bm/SimplePreLAG.cpp gen-cpp/bm/SimplePreLAG.h gen-cpp/bm/simple_pre_lag_types.cpp gen-cpp/bm/simple_pre_lag_types.h
+if mkdir ../tools/bm_runtime.test 2>/dev/null; then \
+  rm -rf ../tools/bm_runtime/; \
+  cp -r ./gen-py/bm_runtime/ ../tools/; \
+  rm -rf ../tools/bm_runtime.test; else :; \
+        fi
+make  all-am
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/thrift_src'
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/standard_constants.lo gen-cpp/bm/standard_constants.cpp
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/Standard.lo gen-cpp/bm/Standard.cpp
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/standard_types.lo gen-cpp/bm/standard_types.cpp
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/simple_pre_constants.lo gen-cpp/bm/simple_pre_constants.cpp
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/standard_cons
+tants.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/standard_constants.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/Standard.cpp
+ -fPIC -DPIC -o gen-cpp/bm/.libs/Standard.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_co
+nstants.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/simple_pre_constants.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/standard_type
+s.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/standard_types.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_co
+nstants.cpp -o gen-cpp/bm/simple_pre_constants.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/standard_cons
+tants.cpp -o gen-cpp/bm/standard_constants.o >/dev/null 2>&1
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/SimplePre.lo gen-cpp/bm/SimplePre.cpp
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/SimplePre.cpp
+  -fPIC -DPIC -o gen-cpp/bm/.libs/SimplePre.o
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/simple_pre_types.lo gen-cpp/bm/simple_pre_types.cpp
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_ty
+pes.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/simple_pre_types.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_ty
+pes.cpp -o gen-cpp/bm/simple_pre_types.o >/dev/null 2>&1
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/simple_pre_lag_constants.lo gen-cpp/bm/simple_pre_lag_constants.cpp
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_la
+g_constants.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/simple_pre_lag_constants.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_la
+g_constants.cpp -o gen-cpp/bm/simple_pre_lag_constants.o >/dev/null 2>&1
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/SimplePreLAG.lo gen-cpp/bm/SimplePreLAG.cpp
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/SimplePreLAG.
+cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/SimplePreLAG.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/SimplePre.cpp
+ -o gen-cpp/bm/SimplePre.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/standard_type
+s.cpp -o gen-cpp/bm/standard_types.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/SimplePreLAG.
+cpp -o gen-cpp/bm/SimplePreLAG.o >/dev/null 2>&1
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -c -o gen-cpp/bm/simple_pre_lag_types.lo gen-cpp/bm/simple_pre_lag_types.cpp
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_la
+g_types.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/simple_pre_lag_types.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/simple_pre_la
+g_types.cpp -o gen-cpp/bm/simple_pre_lag_types.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -Wall -Wextra -pthread -g -O3 -pg -c gen-cpp/bm/Standard.cpp
+-o gen-cpp/bm/Standard.o >/dev/null 2>&1
+/bin/bash ../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libruntimestubs.la -rpath /usr/local/lib gen-cpp/bm/standard_constants.lo gen-cpp/bm/Standard.lo gen-cpp/bm/standar
+d_types.lo gen-cpp/bm/simple_pre_constants.lo gen-cpp/bm/SimplePre.lo gen-cpp/bm/simple_pre_types.lo gen-cpp/bm/simple_pre_lag_constants.lo gen-cpp/bm/SimplePreLAG.lo gen-cpp/bm/simple_pre_lag_types.lo  -
+lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++  -fPIC -DPIC -shared -nostdlib /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o  gen-cpp/bm/.libs/standard_constants.o gen-
+cpp/bm/.libs/Standard.o gen-cpp/bm/.libs/standard_types.o gen-cpp/bm/.libs/simple_pre_constants.o gen-cpp/bm/.libs/SimplePre.o gen-cpp/bm/.libs/simple_pre_types.o gen-cpp/bm/.libs/simple_pre_lag_constants
+.o gen-cpp/bm/.libs/SimplePreLAG.o gen-cpp/bm/.libs/simple_pre_lag_types.o   -lboost_thread -lpcap -lgmp -lnanomsg -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-lin
+ux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -lstdc++ -lm -lc -
+lgcc_s /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o  -pthread -g -O3 -pg   -pthread -Wl,-soname -Wl,libruntimestubs.so.0 -o .libs/libruntime
+stubs.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libruntimestubs.so.0" && ln -s "libruntimestubs.so.0.0.0" "libruntimestubs.so.0")
+libtool: link: (cd ".libs" && rm -f "libruntimestubs.so" && ln -s "libruntimestubs.so.0.0.0" "libruntimestubs.so")
+libtool: link: ar cr .libs/libruntimestubs.a  gen-cpp/bm/standard_constants.o gen-cpp/bm/Standard.o gen-cpp/bm/standard_types.o gen-cpp/bm/simple_pre_constants.o gen-cpp/bm/SimplePre.o gen-cpp/bm/simple_p
+re_types.o gen-cpp/bm/simple_pre_lag_constants.o gen-cpp/bm/SimplePreLAG.o gen-cpp/bm/simple_pre_lag_types.o
+libtool: link: ranlib .libs/libruntimestubs.a
+libtool: link: ( cd ".libs" && rm -f "libruntimestubs.la" && ln -s "../libruntimestubs.la" "libruntimestubs.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/thrift_src'
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog/thrift_src'
+Making all in third_party
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog/third_party'
+Making all in gtest
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/third_party/gtest'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/third_party/gtest'
+Making all in jsoncpp
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/third_party/jsoncpp'
+depbase=`echo src/jsoncpp.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I./include   -g -O3 -pg -MT src/jsoncpp.lo -MD -MP -MF $depbase.Tpo -c -o src/jsoncpp.lo src/jsoncpp.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I./include -g -O3 -pg -MT src/jsoncpp.lo -MD -MP -MF src/.deps/jsoncpp.Tpo -c src/jsoncpp.cpp  -fPIC -DPIC -o src/.libs/jsoncpp.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I./include -g -O3 -pg -MT src/jsoncpp.lo -MD -MP -MF src/.deps/jsoncpp.Tpo -c src/jsoncpp.cpp -o src/jsoncpp.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++  -g -O3 -pg   -o libjson.la  src/jsoncpp.lo  -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: ar cr .libs/libjson.a src/.libs/jsoncpp.o
+libtool: link: ranlib .libs/libjson.a
+libtool: link: ( cd ".libs" && rm -f "libjson.la" && ln -s "../libjson.la" "libjson.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/third_party/jsoncpp'
+Making all in spdlog
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/third_party/spdlog'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/third_party/spdlog'
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/third_party'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/third_party'
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog/third_party'
+Making all in src
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog/src'
+Making all in bf_lpm_trie
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/src/bf_lpm_trie'
+depbase=`echo bf_lpm_trie.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/in
+clude                           -isystem../../third_party/spdlog  -pthread -g -O3 -pg -MT bf_lpm_trie.lo -MD -MP -MF $depbase.Tpo -c -o bf_lpm_trie.lo bf_lpm_trie.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -pthread -g -O3 -pg -MT bf_lpm_trie.lo -MD -MP
+ -MF .deps/bf_lpm_trie.Tpo -c bf_lpm_trie.c  -fPIC -DPIC -o .libs/bf_lpm_trie.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -pthread -g -O3 -pg -MT bf_lpm_trie.lo -MD -MP
+ -MF .deps/bf_lpm_trie.Tpo -c bf_lpm_trie.c -o bf_lpm_trie.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CC   --mode=link gcc -pthread -g -O3 -pg   -o libbflpmtrie.la  bf_lpm_trie.lo  -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: ar cr .libs/libbflpmtrie.a .libs/bf_lpm_trie.o
+libtool: link: ranlib .libs/libbflpmtrie.a
+libtool: link: ( cd ".libs" && rm -f "libbflpmtrie.la" && ln -s "../libbflpmtrie.la" "libbflpmtrie.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src/bf_lpm_trie'
+Making all in BMI
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/src/BMI'
+depbase=`echo bmi_interface.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/in
+clude                           -isystem../../third_party/spdlog -DWITH_PCAP_FIX  -pthread -g -O3 -pg -MT bmi_interface.lo -MD -MP -MF $depbase.Tpo -c -o bmi_interface.lo bmi_interface.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo bmi_port.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/in
+clude                           -isystem../../third_party/spdlog -DWITH_PCAP_FIX  -pthread -g -O3 -pg -MT bmi_port.lo -MD -MP -MF $depbase.Tpo -c -o bmi_port.lo bmi_port.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -DWITH_PCAP_FIX -pthread -g -O3 -pg -MT bmi_in
+terface.lo -MD -MP -MF .deps/bmi_interface.Tpo -c bmi_interface.c  -fPIC -DPIC -o .libs/bmi_interface.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -DWITH_PCAP_FIX -pthread -g -O3 -pg -MT bmi_po
+rt.lo -MD -MP -MF .deps/bmi_port.Tpo -c bmi_port.c  -fPIC -DPIC -o .libs/bmi_port.o
+bmi_port.c: In function ‘run_select’:
+bmi_port.c:137:7: warning: ignoring return value of ‘read’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  137 |       read(port_mgr->socketpairfd[1], buf, sizeof(buf));
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bmi_port.c:138:7: warning: ignoring return value of ‘write’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  138 |       write(port_mgr->socketpairfd[1], buf, sizeof(buf));
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bmi_port.c: In function ‘_bmi_port_interface_remove’:
+bmi_port.c:321:3: warning: ignoring return value of ‘write’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  321 |   write(port_mgr->socketpairfd[0], buf, sizeof(buf));
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bmi_port.c:322:3: warning: ignoring return value of ‘read’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+  322 |   read(port_mgr->socketpairfd[0], buf, sizeof(buf));
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -DWITH_PCAP_FIX -pthread -g -O3 -pg -MT bmi_in
+terface.lo -MD -MP -MF .deps/bmi_interface.Tpo -c bmi_interface.c -o bmi_interface.o >/dev/null 2>&1
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -DWITH_PCAP_FIX -pthread -g -O3 -pg -MT bmi_po
+rt.lo -MD -MP -MF .deps/bmi_port.Tpo -c bmi_port.c -o bmi_port.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CC   --mode=link gcc -pthread -g -O3 -pg   -o libbmi.la  bmi_interface.lo bmi_port.lo  -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: ar cr .libs/libbmi.a .libs/bmi_interface.o .libs/bmi_port.o
+libtool: link: ranlib .libs/libbmi.a
+libtool: link: ( cd ".libs" && rm -f "libbmi.la" && ln -s "../libbmi.la" "libbmi.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src/BMI'
+Making all in bm_sim
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/src/bm_sim'
+depbase=`echo _assert.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT _assert.lo -MD -MP -MF $depbase.Tpo -c -o _assert.lo _assert.cpp &&
+\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo action_profile.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT action_profile.lo -MD -MP -MF $depbase.Tpo -c -o action_profile.lo
+action_profile.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo actions.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT actions.lo -MD -MP -MF $depbase.Tpo -c -o actions.lo actions.cpp &&
+\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo ageing.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT ageing.lo -MD -MP -MF $depbase.Tpo -c -o ageing.lo ageing.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT _assert.lo -MD -MP -MF .deps/_assert.Tpo -c _assert.cpp  -fPIC -DPIC -o .libs/_assert.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT ageing.lo -MD -MP -MF .deps/ageing.Tpo -c ageing.cpp  -fPIC -DPIC -o .libs/ageing.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT actions.lo -MD -MP -MF .deps/actions.Tpo -c actions.cpp  -fPIC -DPIC -o .libs/actions.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT action_profile.lo -MD -MP -MF .deps/action_profile.Tpo -c action_profile.cpp  -fPIC -DPIC -o .libs/action_profile.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT _assert.lo -MD -MP -MF .deps/_assert.Tpo -c _assert.cpp -o _assert.o >/dev/null 2>&1
+depbase=`echo bytecontainer.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT bytecontainer.lo -MD -MP -MF $depbase.Tpo -c -o bytecontainer.lo by
+tecontainer.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT bytecontainer.lo -MD -MP -MF .deps/bytecontainer.Tpo -c bytecontainer.cpp  -fPIC -DPIC -o .libs/bytecontainer.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT bytecontainer.lo -MD -MP -MF .deps/bytecontainer.Tpo -c bytecontainer.cpp -o bytecontainer.o >/dev/null 2>&1
+depbase=`echo calculations.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT calculations.lo -MD -MP -MF $depbase.Tpo -c -o calculations.lo calc
+ulations.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT calculations.lo -MD -MP -MF .deps/calculations.Tpo -c calculations.cpp  -fPIC -DPIC -o .libs/calculations.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT ageing.lo -MD -MP -MF .deps/ageing.Tpo -c ageing.cpp -o ageing.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT action_profile.lo -MD -MP -MF .deps/action_profile.Tpo -c action_profile.cpp -o action_profile.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT calculations.lo -MD -MP -MF .deps/calculations.Tpo -c calculations.cpp -o calculations.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT actions.lo -MD -MP -MF .deps/actions.Tpo -c actions.cpp -o actions.o >/dev/null 2>&1
+depbase=`echo checksums.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT checksums.lo -MD -MP -MF $depbase.Tpo -c -o checksums.lo checksums.
+cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT checksums.lo -MD -MP -MF .deps/checksums.Tpo -c checksums.cpp  -fPIC -DPIC -o .libs/checksums.o
+depbase=`echo conditionals.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT conditionals.lo -MD -MP -MF $depbase.Tpo -c -o conditionals.lo cond
+itionals.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT conditionals.lo -MD -MP -MF .deps/conditionals.Tpo -c conditionals.cpp  -fPIC -DPIC -o .libs/conditionals.o
+depbase=`echo context.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT context.lo -MD -MP -MF $depbase.Tpo -c -o context.lo context.cpp &&
+\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT context.lo -MD -MP -MF .deps/context.Tpo -c context.cpp  -fPIC -DPIC -o .libs/context.o
+checksums.cpp:36:1: warning: ‘std::string bm::{anonymous}::convertU64ToHexStr(uint64_t)’ defined but not used [-Wunused-function]
+   36 | convertU64ToHexStr(const uint64_t val) {
+      | ^~~~~~~~~~~~~~~~~~
+depbase=`echo control_action.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT control_action.lo -MD -MP -MF $depbase.Tpo -c -o control_action.lo
+control_action.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT control_action.lo -MD -MP -MF .deps/control_action.Tpo -c control_action.cpp  -fPIC -DPIC -o .libs/control_action.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT checksums.lo -MD -MP -MF .deps/checksums.Tpo -c checksums.cpp -o checksums.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT conditionals.lo -MD -MP -MF .deps/conditionals.Tpo -c conditionals.cpp -o conditionals.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT control_action.lo -MD -MP -MF .deps/control_action.Tpo -c control_action.cpp -o control_action.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT context.lo -MD -MP -MF .deps/context.Tpo -c context.cpp -o context.o >/dev/null 2>&1
+depbase=`echo counters.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT counters.lo -MD -MP -MF $depbase.Tpo -c -o counters.lo counters.cpp
+ &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT counters.lo -MD -MP -MF .deps/counters.Tpo -c counters.cpp  -fPIC -DPIC -o .libs/counters.o
+depbase=`echo crc_map.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT crc_map.lo -MD -MP -MF $depbase.Tpo -c -o crc_map.lo crc_map.cpp &&
+\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT crc_map.lo -MD -MP -MF .deps/crc_map.Tpo -c crc_map.cpp  -fPIC -DPIC -o .libs/crc_map.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT counters.lo -MD -MP -MF .deps/counters.Tpo -c counters.cpp -o counters.o >/dev/null 2>&1
+depbase=`echo debugger.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT debugger.lo -MD -MP -MF $depbase.Tpo -c -o debugger.lo debugger.cpp
+ &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT debugger.lo -MD -MP -MF .deps/debugger.Tpo -c debugger.cpp  -fPIC -DPIC -o .libs/debugger.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT debugger.lo -MD -MP -MF .deps/debugger.Tpo -c debugger.cpp -o debugger.o >/dev/null 2>&1
+depbase=`echo deparser.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT deparser.lo -MD -MP -MF $depbase.Tpo -c -o deparser.lo deparser.cpp
+ &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT deparser.lo -MD -MP -MF .deps/deparser.Tpo -c deparser.cpp  -fPIC -DPIC -o .libs/deparser.o
+depbase=`echo dev_mgr.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT dev_mgr.lo -MD -MP -MF $depbase.Tpo -c -o dev_mgr.lo dev_mgr.cpp &&
+\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT dev_mgr.lo -MD -MP -MF .deps/dev_mgr.Tpo -c dev_mgr.cpp  -fPIC -DPIC -o .libs/dev_mgr.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT crc_map.lo -MD -MP -MF .deps/crc_map.Tpo -c crc_map.cpp -o crc_map.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT dev_mgr.lo -MD -MP -MF .deps/dev_mgr.Tpo -c dev_mgr.cpp -o dev_mgr.o >/dev/null 2>&1
+depbase=`echo dev_mgr_bmi.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT dev_mgr_bmi.lo -MD -MP -MF $depbase.Tpo -c -o dev_mgr_bmi.lo dev_mg
+r_bmi.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT dev_mgr_bmi.lo -MD -MP -MF .deps/dev_mgr_bmi.Tpo -c dev_mgr_bmi.cpp  -fPIC -DPIC -o .libs/dev_mgr_bmi.o
+depbase=`echo dev_mgr_packet_in.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT dev_mgr_packet_in.lo -MD -MP -MF $depbase.Tpo -c -o dev_mgr_packet_
+in.lo dev_mgr_packet_in.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT dev_mgr_packet_in.lo -MD -MP -MF .deps/dev_mgr_packet_in.Tpo -c dev_mgr_packet_in.cpp  -fPIC -DPIC -o .libs/dev_mgr_packet_in.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT deparser.lo -MD -MP -MF .deps/deparser.Tpo -c deparser.cpp -o deparser.o >/dev/null 2>&1
+depbase=`echo enums.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT enums.lo -MD -MP -MF $depbase.Tpo -c -o enums.lo enums.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT enums.lo -MD -MP -MF .deps/enums.Tpo -c enums.cpp  -fPIC -DPIC -o .libs/enums.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT enums.lo -MD -MP -MF .deps/enums.Tpo -c enums.cpp -o enums.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT dev_mgr_bmi.lo -MD -MP -MF .deps/dev_mgr_bmi.Tpo -c dev_mgr_bmi.cpp -o dev_mgr_bmi.o >/dev/null 2>&1
+depbase=`echo event_logger.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT event_logger.lo -MD -MP -MF $depbase.Tpo -c -o event_logger.lo even
+t_logger.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT event_logger.lo -MD -MP -MF .deps/event_logger.Tpo -c event_logger.cpp  -fPIC -DPIC -o .libs/event_logger.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT dev_mgr_packet_in.lo -MD -MP -MF .deps/dev_mgr_packet_in.Tpo -c dev_mgr_packet_in.cpp -o dev_mgr_packet_in.o >/dev/null 2>&1
+depbase=`echo expressions.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT expressions.lo -MD -MP -MF $depbase.Tpo -c -o expressions.lo expres
+sions.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT expressions.lo -MD -MP -MF .deps/expressions.Tpo -c expressions.cpp  -fPIC -DPIC -o .libs/expressions.o
+depbase=`echo extern.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT extern.lo -MD -MP -MF $depbase.Tpo -c -o extern.lo extern.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT extern.lo -MD -MP -MF .deps/extern.Tpo -c extern.cpp  -fPIC -DPIC -o .libs/extern.o
+depbase=`echo fields.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT fields.lo -MD -MP -MF $depbase.Tpo -c -o fields.lo fields.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT fields.lo -MD -MP -MF .deps/fields.Tpo -c fields.cpp  -fPIC -DPIC -o .libs/fields.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT event_logger.lo -MD -MP -MF .deps/event_logger.Tpo -c event_logger.cpp -o event_logger.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT extern.lo -MD -MP -MF .deps/extern.Tpo -c extern.cpp -o extern.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT fields.lo -MD -MP -MF .deps/fields.Tpo -c fields.cpp -o fields.o >/dev/null 2>&1
+depbase=`echo headers.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT headers.lo -MD -MP -MF $depbase.Tpo -c -o headers.lo headers.cpp &&
+\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT expressions.lo -MD -MP -MF .deps/expressions.Tpo -c expressions.cpp -o expressions.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT headers.lo -MD -MP -MF .deps/headers.Tpo -c headers.cpp  -fPIC -DPIC -o .libs/headers.o
+depbase=`echo header_unions.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT header_unions.lo -MD -MP -MF $depbase.Tpo -c -o header_unions.lo he
+ader_unions.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT header_unions.lo -MD -MP -MF .deps/header_unions.Tpo -c header_unions.cpp  -fPIC -DPIC -o .libs/header_unions.o
+depbase=`echo learning.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT learning.lo -MD -MP -MF $depbase.Tpo -c -o learning.lo learning.cpp
+ &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT learning.lo -MD -MP -MF .deps/learning.Tpo -c learning.cpp  -fPIC -DPIC -o .libs/learning.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT header_unions.lo -MD -MP -MF .deps/header_unions.Tpo -c header_unions.cpp -o header_unions.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT headers.lo -MD -MP -MF .deps/headers.Tpo -c headers.cpp -o headers.o >/dev/null 2>&1
+depbase=`echo lookup_structures.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT lookup_structures.lo -MD -MP -MF $depbase.Tpo -c -o lookup_structur
+es.lo lookup_structures.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT lookup_structures.lo -MD -MP -MF .deps/lookup_structures.Tpo -c lookup_structures.cpp  -fPIC -DPIC -o .libs/lookup_structures.o
+depbase=`echo logger.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT logger.lo -MD -MP -MF $depbase.Tpo -c -o logger.lo logger.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT logger.lo -MD -MP -MF .deps/logger.Tpo -c logger.cpp  -fPIC -DPIC -o .libs/logger.o
+depbase=`echo match_error_codes.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT match_error_codes.lo -MD -MP -MF $depbase.Tpo -c -o match_error_cod
+es.lo match_error_codes.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT lookup_structures.lo -MD -MP -MF .deps/lookup_structures.Tpo -c lookup_structures.cpp -o lookup_structures.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT match_error_codes.lo -MD -MP -MF .deps/match_error_codes.Tpo -c match_error_codes.cpp  -fPIC -DPIC -o .libs/match_error_codes.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT match_error_codes.lo -MD -MP -MF .deps/match_error_codes.Tpo -c match_error_codes.cpp -o match_error_codes.o >/dev/null 2>&1
+depbase=`echo match_units.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT match_units.lo -MD -MP -MF $depbase.Tpo -c -o match_units.lo match_
+units.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT match_units.lo -MD -MP -MF .deps/match_units.Tpo -c match_units.cpp  -fPIC -DPIC -o .libs/match_units.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT learning.lo -MD -MP -MF .deps/learning.Tpo -c learning.cpp -o learning.o >/dev/null 2>&1
+depbase=`echo match_tables.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT match_tables.lo -MD -MP -MF $depbase.Tpo -c -o match_tables.lo matc
+h_tables.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT match_tables.lo -MD -MP -MF .deps/match_tables.Tpo -c match_tables.cpp  -fPIC -DPIC -o .libs/match_tables.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT logger.lo -MD -MP -MF .deps/logger.Tpo -c logger.cpp -o logger.o >/dev/null 2>&1
+depbase=`echo md5.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/in
+clude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -pthread  -g -O3 -pg -MT md5.lo -MD -MP -MF $depbase.Tpo -c -o md5.lo md5.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -pthread -g -O3
+-pg -MT md5.lo -MD -MP -MF .deps/md5.Tpo -c md5.c  -fPIC -DPIC -o .libs/md5.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -pthread -g -O3
+-pg -MT md5.lo -MD -MP -MF .deps/md5.Tpo -c md5.c -o md5.o >/dev/null 2>&1
+depbase=`echo meters.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT meters.lo -MD -MP -MF $depbase.Tpo -c -o meters.lo meters.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT meters.lo -MD -MP -MF .deps/meters.Tpo -c meters.cpp  -fPIC -DPIC -o .libs/meters.o
+depbase=`echo options_parse.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT options_parse.lo -MD -MP -MF $depbase.Tpo -c -o options_parse.lo op
+tions_parse.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT options_parse.lo -MD -MP -MF .deps/options_parse.Tpo -c options_parse.cpp  -fPIC -DPIC -o .libs/options_parse.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT meters.lo -MD -MP -MF .deps/meters.Tpo -c meters.cpp -o meters.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT match_units.lo -MD -MP -MF .deps/match_units.Tpo -c match_units.cpp -o match_units.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT match_tables.lo -MD -MP -MF .deps/match_tables.Tpo -c match_tables.cpp -o match_tables.o >/dev/null 2>&1
+depbase=`echo P4Objects.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT P4Objects.lo -MD -MP -MF $depbase.Tpo -c -o P4Objects.lo P4Objects.
+cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT P4Objects.lo -MD -MP -MF .deps/P4Objects.Tpo -c P4Objects.cpp  -fPIC -DPIC -o .libs/P4Objects.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT options_parse.lo -MD -MP -MF .deps/options_parse.Tpo -c options_parse.cpp -o options_parse.o >/dev/null 2>&1
+depbase=`echo packet.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT packet.lo -MD -MP -MF $depbase.Tpo -c -o packet.lo packet.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT packet.lo -MD -MP -MF .deps/packet.Tpo -c packet.cpp  -fPIC -DPIC -o .libs/packet.o
+depbase=`echo parser.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT parser.lo -MD -MP -MF $depbase.Tpo -c -o parser.lo parser.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT parser.lo -MD -MP -MF .deps/parser.Tpo -c parser.cpp  -fPIC -DPIC -o .libs/parser.o
+depbase=`echo parser_error.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT parser_error.lo -MD -MP -MF $depbase.Tpo -c -o parser_error.lo pars
+er_error.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT parser_error.lo -MD -MP -MF .deps/parser_error.Tpo -c parser_error.cpp  -fPIC -DPIC -o .libs/parser_error.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT P4Objects.lo -MD -MP -MF .deps/P4Objects.Tpo -c P4Objects.cpp -o P4Objects.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT parser_error.lo -MD -MP -MF .deps/parser_error.Tpo -c parser_error.cpp -o parser_error.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT parser.lo -MD -MP -MF .deps/parser.Tpo -c parser.cpp -o parser.o >/dev/null 2>&1
+depbase=`echo pcap_file.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT pcap_file.lo -MD -MP -MF $depbase.Tpo -c -o pcap_file.lo pcap_file.
+cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT pcap_file.lo -MD -MP -MF .deps/pcap_file.Tpo -c pcap_file.cpp  -fPIC -DPIC -o .libs/pcap_file.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT pcap_file.lo -MD -MP -MF .deps/pcap_file.Tpo -c pcap_file.cpp -o pcap_file.o >/dev/null 2>&1
+depbase=`echo pipeline.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT pipeline.lo -MD -MP -MF $depbase.Tpo -c -o pipeline.lo pipeline.cpp
+ &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT pipeline.lo -MD -MP -MF .deps/pipeline.Tpo -c pipeline.cpp  -fPIC -DPIC -o .libs/pipeline.o
+depbase=`echo periodic_task.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT periodic_task.lo -MD -MP -MF $depbase.Tpo -c -o periodic_task.lo pe
+riodic_task.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT periodic_task.lo -MD -MP -MF .deps/periodic_task.Tpo -c periodic_task.cpp  -fPIC -DPIC -o .libs/periodic_task.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT pipeline.lo -MD -MP -MF .deps/pipeline.Tpo -c pipeline.cpp -o pipeline.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT periodic_task.lo -MD -MP -MF .deps/periodic_task.Tpo -c periodic_task.cpp -o periodic_task.o >/dev/null 2>&1
+depbase=`echo port_monitor.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT port_monitor.lo -MD -MP -MF $depbase.Tpo -c -o port_monitor.lo port
+_monitor.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT port_monitor.lo -MD -MP -MF .deps/port_monitor.Tpo -c port_monitor.cpp  -fPIC -DPIC -o .libs/port_monitor.o
+depbase=`echo phv.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT phv.lo -MD -MP -MF $depbase.Tpo -c -o phv.lo phv.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT phv.lo -MD -MP -MF .deps/phv.Tpo -c phv.cpp  -fPIC -DPIC -o .libs/phv.o
+depbase=`echo phv_source.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT phv_source.lo -MD -MP -MF $depbase.Tpo -c -o phv_source.lo phv_sour
+ce.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT phv_source.lo -MD -MP -MF .deps/phv_source.Tpo -c phv_source.cpp  -fPIC -DPIC -o .libs/phv_source.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT port_monitor.lo -MD -MP -MF .deps/port_monitor.Tpo -c port_monitor.cpp -o port_monitor.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT phv_source.lo -MD -MP -MF .deps/phv_source.Tpo -c phv_source.cpp -o phv_source.o >/dev/null 2>&1
+depbase=`echo stateful.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT stateful.lo -MD -MP -MF $depbase.Tpo -c -o stateful.lo stateful.cpp
+ &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT stateful.lo -MD -MP -MF .deps/stateful.Tpo -c stateful.cpp  -fPIC -DPIC -o .libs/stateful.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT phv.lo -MD -MP -MF .deps/phv.Tpo -c phv.cpp -o phv.o >/dev/null 2>&1
+depbase=`echo switch.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT switch.lo -MD -MP -MF $depbase.Tpo -c -o switch.lo switch.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT switch.lo -MD -MP -MF .deps/switch.Tpo -c switch.cpp  -fPIC -DPIC -o .libs/switch.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT stateful.lo -MD -MP -MF .deps/stateful.Tpo -c stateful.cpp -o stateful.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT packet.lo -MD -MP -MF .deps/packet.Tpo -c packet.cpp -o packet.o >/dev/null 2>&1
+depbase=`echo simple_pre.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT simple_pre.lo -MD -MP -MF $depbase.Tpo -c -o simple_pre.lo simple_p
+re.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT simple_pre.lo -MD -MP -MF .deps/simple_pre.Tpo -c simple_pre.cpp  -fPIC -DPIC -o .libs/simple_pre.o
+depbase=`echo simple_pre_lag.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT simple_pre_lag.lo -MD -MP -MF $depbase.Tpo -c -o simple_pre_lag.lo
+simple_pre_lag.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT simple_pre_lag.lo -MD -MP -MF .deps/simple_pre_lag.Tpo -c simple_pre_lag.cpp  -fPIC -DPIC -o .libs/simple_pre_lag.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT simple_pre.lo -MD -MP -MF .deps/simple_pre.Tpo -c simple_pre.cpp -o simple_pre.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT switch.lo -MD -MP -MF .deps/switch.Tpo -c switch.cpp -o switch.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT simple_pre_lag.lo -MD -MP -MF .deps/simple_pre_lag.Tpo -c simple_pre_lag.cpp -o simple_pre_lag.o >/dev/null 2>&1
+depbase=`echo source_info.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT source_info.lo -MD -MP -MF $depbase.Tpo -c -o source_info.lo source
+_info.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT source_info.lo -MD -MP -MF .deps/source_info.Tpo -c source_info.cpp  -fPIC -DPIC -o .libs/source_info.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT source_info.lo -MD -MP -MF .deps/source_info.Tpo -c source_info.cpp -o source_info.o >/dev/null 2>&1
+depbase=`echo stacks.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT stacks.lo -MD -MP -MF $depbase.Tpo -c -o stacks.lo stacks.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT stacks.lo -MD -MP -MF .deps/stacks.Tpo -c stacks.cpp  -fPIC -DPIC -o .libs/stacks.o
+depbase=`echo tables.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT tables.lo -MD -MP -MF $depbase.Tpo -c -o tables.lo tables.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT tables.lo -MD -MP -MF .deps/tables.Tpo -c tables.cpp  -fPIC -DPIC -o .libs/tables.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT stacks.lo -MD -MP -MF .deps/stacks.Tpo -c stacks.cpp -o stacks.o >/dev/null 2>&1
+depbase=`echo target_parser.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT target_parser.lo -MD -MP -MF $depbase.Tpo -c -o target_parser.lo ta
+rget_parser.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT target_parser.lo -MD -MP -MF .deps/target_parser.Tpo -c target_parser.cpp  -fPIC -DPIC -o .libs/target_parser.o
+depbase=`echo transport.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT transport.lo -MD -MP -MF $depbase.Tpo -c -o transport.lo transport.
+cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT transport.lo -MD -MP -MF .deps/transport.Tpo -c transport.cpp  -fPIC -DPIC -o .libs/transport.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT transport.lo -MD -MP -MF .deps/transport.Tpo -c transport.cpp -o transport.o >/dev/null 2>&1
+depbase=`echo transport_nn.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT transport_nn.lo -MD -MP -MF $depbase.Tpo -c -o transport_nn.lo tran
+sport_nn.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT transport_nn.lo -MD -MP -MF .deps/transport_nn.Tpo -c transport_nn.cpp  -fPIC -DPIC -o .libs/transport_nn.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT transport_nn.lo -MD -MP -MF .deps/transport_nn.Tpo -c transport_nn.cpp -o transport_nn.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT tables.lo -MD -MP -MF .deps/tables.Tpo -c tables.cpp -o tables.o >/dev/null 2>&1
+depbase=`echo version.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT version.lo -MD -MP -MF $depbase.Tpo -c -o version.lo version.cpp &&
+\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT version.lo -MD -MP -MF .deps/version.Tpo -c version.cpp  -fPIC -DPIC -o .libs/version.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT version.lo -MD -MP -MF .deps/version.Tpo -c version.cpp -o version.o >/dev/null 2>&1
+depbase=`echo xxhash.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CC   --mode=compile gcc -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/in
+clude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -pthread  -g -O3 -pg -MT xxhash.lo -MD -MP -MF $depbase.Tpo -c -o xxhash.lo xxhash.c &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -pthread -g -O3
+-pg -MT xxhash.lo -MD -MP -MF .deps/xxhash.Tpo -c xxhash.c  -fPIC -DPIC -o .libs/xxhash.o
+libtool: compile:  gcc -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -pthread -g -O3
+-pg -MT xxhash.lo -MD -MP -MF .deps/xxhash.Tpo -c xxhash.c -o xxhash.o >/dev/null 2>&1
+depbase=`echo core/primitives.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie  -Wall -Wextra -pthread   -g -O3 -pg -MT core/primitives.lo -MD -MP -MF $depbase.Tpo -c -o core/primitives.l
+o core/primitives.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT core/primitives.lo -MD -MP -MF core/.deps/primitives.Tpo -c core/primitives.cpp  -fPIC -DPIC -o core/.libs/primitives.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT target_parser.lo -MD -MP -MF .deps/target_parser.Tpo -c target_parser.cpp -o target_parser.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./../BMI -I./../bf_lpm_trie -Wall -Wextra -p
+thread -g -O3 -pg -MT core/primitives.lo -MD -MP -MF core/.deps/primitives.Tpo -c core/primitives.cpp -o core/primitives.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread   -g -O3 -pg   -o libbmsim.la  _assert.lo action_profile.lo actions.lo ageing.lo bytecontainer.lo calculations.lo checksums.lo c
+onditionals.lo context.lo control_action.lo counters.lo crc_map.lo debugger.lo deparser.lo dev_mgr.lo dev_mgr_bmi.lo dev_mgr_packet_in.lo enums.lo event_logger.lo expressions.lo extern.lo fields.lo header
+s.lo header_unions.lo learning.lo lookup_structures.lo logger.lo match_error_codes.lo match_units.lo match_tables.lo md5.lo meters.lo options_parse.lo P4Objects.lo packet.lo parser.lo parser_error.lo pcap
+_file.lo pipeline.lo periodic_task.lo port_monitor.lo phv.lo phv_source.lo stateful.lo switch.lo simple_pre.lo simple_pre_lag.lo source_info.lo stacks.lo tables.lo target_parser.lo transport.lo transport_
+nn.lo version.lo xxhash.lo core/primitives.lo  -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: ar cr .libs/libbmsim.a .libs/_assert.o .libs/action_profile.o .libs/actions.o .libs/ageing.o .libs/bytecontainer.o .libs/calculations.o .libs/checksums.o .libs/conditionals.o .libs/context.
+o .libs/control_action.o .libs/counters.o .libs/crc_map.o .libs/debugger.o .libs/deparser.o .libs/dev_mgr.o .libs/dev_mgr_bmi.o .libs/dev_mgr_packet_in.o .libs/enums.o .libs/event_logger.o .libs/expressio
+ns.o .libs/extern.o .libs/fields.o .libs/headers.o .libs/header_unions.o .libs/learning.o .libs/lookup_structures.o .libs/logger.o .libs/match_error_codes.o .libs/match_units.o .libs/match_tables.o .libs/
+md5.o .libs/meters.o .libs/options_parse.o .libs/P4Objects.o .libs/packet.o .libs/parser.o .libs/parser_error.o .libs/pcap_file.o .libs/pipeline.o .libs/periodic_task.o .libs/port_monitor.o .libs/phv.o .l
+ibs/phv_source.o .libs/stateful.o .libs/switch.o .libs/simple_pre.o .libs/simple_pre_lag.o .libs/source_info.o .libs/stacks.o .libs/tables.o .libs/target_parser.o .libs/transport.o .libs/transport_nn.o .l
+ibs/version.o .libs/xxhash.o core/.libs/primitives.o
+libtool: link: ranlib .libs/libbmsim.a
+libtool: link: ( cd ".libs" && rm -f "libbmsim.la" && ln -s "../libbmsim.la" "libbmsim.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src/bm_sim'
+Making all in bm_runtime
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/src/bm_runtime'
+depbase=`echo server.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT server.lo -MD -MP -MF $depbase.Tpo -c -o server.lo server.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo Standard_server.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT Standard_server.lo -MD -MP -MF $depbase.Tpo -c -o Standard_server.lo Sta
+ndard_server.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo SimplePre_server.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT SimplePre_server.lo -MD -MP -MF $depbase.Tpo -c -o SimplePre_server.lo S
+implePre_server.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo SimplePreLAG_server.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT SimplePreLAG_server.lo -MD -MP -MF $depbase.Tpo -c -o SimplePreLAG_serve
+r.lo SimplePreLAG_server.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT SimplePre_server.lo -MD -MP -MF .deps/SimplePre_server.Tpo -c SimplePre_server.cpp  -fPIC -DPIC -o .libs/SimplePre_server.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT server.lo -MD -MP -MF .deps/server.Tpo -c server.cpp  -fPIC -DPIC -o .libs/server.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT Standard_server.lo -MD -MP -MF .deps/Standard_server.Tpo -c Standard_server.cpp  -fPIC -DPIC -o .libs/Standard_server.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT SimplePreLAG_server.lo -MD -MP -MF .deps/SimplePreLAG_server.Tpo -c SimplePreLAG_server.cpp  -fPIC -DPIC -o .libs/SimplePreLAG_server.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT SimplePreLAG_server.lo -MD -MP -MF .deps/SimplePreLAG_server.Tpo -c SimplePreLAG_server.cpp -o SimplePreLAG_server.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT SimplePre_server.lo -MD -MP -MF .deps/SimplePre_server.Tpo -c SimplePre_server.cpp -o SimplePre_server.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT server.lo -MD -MP -MF .deps/server.Tpo -c server.cpp -o server.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT Standard_server.lo -MD -MP -MF .deps/Standard_server.Tpo -c Standard_server.cpp -o Standard_server.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libbmruntime.la  server.lo Standard_server.lo SimplePre_server.lo SimplePreLAG_server.lo  -lboost_thread -lpcap
+-lgmp -lnanomsg
+libtool: link: ar cr .libs/libbmruntime.a .libs/server.o .libs/Standard_server.o .libs/SimplePre_server.o .libs/SimplePreLAG_server.o
+libtool: link: ranlib .libs/libbmruntime.a
+libtool: link: ( cd ".libs" && rm -f "libbmruntime.la" && ln -s "../libbmruntime.la" "libbmruntime.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src/bm_runtime'
+Making all in bm_apps
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/src/bm_apps'
+Making all in .
+make[4]: Entering directory '/home/p4/src/bmv2-pg-nolog/src/bm_apps'
+depbase=`echo notifications.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT notifications.lo -MD -MP -MF $depbase.Tpo -c -o notifications.lo notific
+ations.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo packet_pipe.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT packet_pipe.lo -MD -MP -MF $depbase.Tpo -c -o packet_pipe.lo packet_pipe
+.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo learn.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT learn.lo -MD -MP -MF $depbase.Tpo -c -o learn.lo learn.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT notifications.lo -MD -MP -MF .deps/notifications.Tpo -c notifications.cpp  -fPIC -DPIC -o .libs/notifications.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT packet_pipe.lo -MD -MP -MF .deps/packet_pipe.Tpo -c packet_pipe.cpp  -fPIC -DPIC -o .libs/packet_pipe.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT learn.lo -MD -MP -MF .deps/learn.Tpo -c learn.cpp  -fPIC -DPIC -o .libs/learn.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT packet_pipe.lo -MD -MP -MF .deps/packet_pipe.Tpo -c packet_pipe.cpp -o packet_pipe.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT notifications.lo -MD -MP -MF .deps/notifications.Tpo -c notifications.cpp -o notifications.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I../../thrift_src/gen-cpp -Wall -Wextra -pthr
+ead -g -O3 -pg -MT learn.lo -MD -MP -MF .deps/learn.Tpo -c learn.cpp -o learn.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libbmapps.la  notifications.lo packet_pipe.lo learn.lo -lnanomsg ../../thrift_src/libruntimestubs.la -lthrift -l
+boost_thread -lpcap -lgmp -lnanomsg
+libtool: link: ar cr .libs/libbmapps.a .libs/notifications.o .libs/packet_pipe.o .libs/learn.o
+libtool: link: ranlib .libs/libbmapps.a
+libtool: link: ( cd ".libs" && rm -f "libbmapps.la" && ln -s "../libbmapps.la" "libbmapps.la" )
+make[4]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src/bm_apps'
+Making all in examples
+make[4]: Entering directory '/home/p4/src/bmv2-pg-nolog/src/bm_apps/examples'
+depbase=`echo test_packet_pipe.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../../..  -I../../../include                           -I../../../include                           -isystem../../../third_party/jsoncpp/include                           -isyste
+m../../../third_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -MT test_packet_pipe.o -MD -MP -MF $depbase.Tpo -c -o test_packet_pipe.o test_packet_pipe.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+/bin/bash ../../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o test_packet_pipe test_packet_pipe.o ../../../src/bm_apps/libbmapps.la -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++ -Wall -Wextra -pthread -g -O3 -pg -o .libs/test_packet_pipe test_packet_pipe.o  ../../../src/bm_apps/.libs/libbmapps.a /home/p4/src/bmv2-pg-nolog/thrift_src/.libs/libruntimestubs.so -lt
+hrift -lboost_thread -lpcap -lgmp -lnanomsg -pthread
+make[4]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src/bm_apps/examples'
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src/bm_apps'
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/src'
+/bin/bash ../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libbmall.la -rpath /usr/local/lib  ../src/bm_sim/libbmsim.la ../src/bf_lpm_trie/libbflpmtrie.la ../src/BMI/libbmi.l
+a ../third_party/jsoncpp/libjson.la ../src/bm_runtime/libbmruntime.la ../thrift_src/libruntimestubs.la -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboost_thread -lpcap -lgmp -lnano
+msg
+/bin/bash ../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libbmp4apps.la -rpath /usr/local/lib  bm_apps/libbmapps.la -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++  -fPIC -DPIC -shared -nostdlib /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o  -Wl,--whole-archive bm_apps/.libs/libbmapp
+s.a -Wl,--no-whole-archive  -Wl,-rpath -Wl,/home/p4/src/bmv2-pg-nolog/thrift_src/.libs /home/p4/src/bmv2-pg-nolog/thrift_src/.libs/libruntimestubs.so -lthrift -lboost_thread -lpcap -lgmp -lnanomsg -L/usr/
+lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gn
+u -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -lstdc++ -lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o  -pthr
+ead -g -O3 -pg   -pthread -Wl,-soname -Wl,libbmp4apps.so.0 -o .libs/libbmp4apps.so.0.0.0
+libtool: link: g++  -fPIC -DPIC -shared -nostdlib /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o  -Wl,--whole-archive ../src/bm_sim/.libs/li
+bbmsim.a ../src/bf_lpm_trie/.libs/libbflpmtrie.a ../src/BMI/.libs/libbmi.a ../third_party/jsoncpp/.libs/libjson.a ../src/bm_runtime/.libs/libbmruntime.a -Wl,--no-whole-archive  -Wl,-rpath -Wl,/home/p4/src
+/bmv2-pg-nolog/thrift_src/.libs ../thrift_src/.libs/libruntimestubs.so -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboost_thread -lpcap -lgmp -lnanomsg -L/usr/lib/gcc/x86_64-linux-
+gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -
+L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -lstdc++ -lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o  -pthread -g -O3 -pg   -pth
+read -Wl,-soname -Wl,libbmall.so.0 -o .libs/libbmall.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libbmp4apps.so.0" && ln -s "libbmp4apps.so.0.0.0" "libbmp4apps.so.0")
+libtool: link: (cd ".libs" && rm -f "libbmp4apps.so" && ln -s "libbmp4apps.so.0.0.0" "libbmp4apps.so")
+libtool: link: (cd .libs/libbmp4apps.lax/libbmapps.a && ar x "/home/p4/src/bmv2-pg-nolog/src/bm_apps/.libs/libbmapps.a")
+libtool: link: ar cr .libs/libbmp4apps.a   .libs/libbmp4apps.lax/libbmapps.a/learn.o .libs/libbmp4apps.lax/libbmapps.a/notifications.o .libs/libbmp4apps.lax/libbmapps.a/packet_pipe.o
+libtool: link: ranlib .libs/libbmp4apps.a
+libtool: link: rm -fr .libs/libbmp4apps.lax
+libtool: link: ( cd ".libs" && rm -f "libbmp4apps.la" && ln -s "../libbmp4apps.la" "libbmp4apps.la" )
+libtool: link: (cd ".libs" && rm -f "libbmall.so.0" && ln -s "libbmall.so.0.0.0" "libbmall.so.0")
+libtool: link: (cd ".libs" && rm -f "libbmall.so" && ln -s "libbmall.so.0.0.0" "libbmall.so")
+libtool: link: (cd .libs/libbmall.lax/libbmsim.a && ar x "/home/p4/src/bmv2-pg-nolog/src/../src/bm_sim/.libs/libbmsim.a")
+libtool: link: (cd .libs/libbmall.lax/libbflpmtrie.a && ar x "/home/p4/src/bmv2-pg-nolog/src/../src/bf_lpm_trie/.libs/libbflpmtrie.a")
+libtool: link: (cd .libs/libbmall.lax/libbmi.a && ar x "/home/p4/src/bmv2-pg-nolog/src/../src/BMI/.libs/libbmi.a")
+libtool: link: (cd .libs/libbmall.lax/libjson.a && ar x "/home/p4/src/bmv2-pg-nolog/src/../third_party/jsoncpp/.libs/libjson.a")
+libtool: link: (cd .libs/libbmall.lax/libbmruntime.a && ar x "/home/p4/src/bmv2-pg-nolog/src/../src/bm_runtime/.libs/libbmruntime.a")
+libtool: link: ar cr .libs/libbmall.a   .libs/libbmall.lax/libbmsim.a/P4Objects.o .libs/libbmall.lax/libbmsim.a/_assert.o .libs/libbmall.lax/libbmsim.a/action_profile.o .libs/libbmall.lax/libbmsim.a/actio
+ns.o .libs/libbmall.lax/libbmsim.a/ageing.o .libs/libbmall.lax/libbmsim.a/bytecontainer.o .libs/libbmall.lax/libbmsim.a/calculations.o .libs/libbmall.lax/libbmsim.a/checksums.o .libs/libbmall.lax/libbmsim
+.a/conditionals.o .libs/libbmall.lax/libbmsim.a/context.o .libs/libbmall.lax/libbmsim.a/control_action.o .libs/libbmall.lax/libbmsim.a/counters.o .libs/libbmall.lax/libbmsim.a/crc_map.o .libs/libbmall.lax
+/libbmsim.a/debugger.o .libs/libbmall.lax/libbmsim.a/deparser.o .libs/libbmall.lax/libbmsim.a/dev_mgr.o .libs/libbmall.lax/libbmsim.a/dev_mgr_bmi.o .libs/libbmall.lax/libbmsim.a/dev_mgr_packet_in.o .libs/
+libbmall.lax/libbmsim.a/enums.o .libs/libbmall.lax/libbmsim.a/event_logger.o .libs/libbmall.lax/libbmsim.a/expressions.o .libs/libbmall.lax/libbmsim.a/extern.o .libs/libbmall.lax/libbmsim.a/fields.o .libs
+/libbmall.lax/libbmsim.a/header_unions.o .libs/libbmall.lax/libbmsim.a/headers.o .libs/libbmall.lax/libbmsim.a/learning.o .libs/libbmall.lax/libbmsim.a/logger.o .libs/libbmall.lax/libbmsim.a/lookup_struct
+ures.o .libs/libbmall.lax/libbmsim.a/match_error_codes.o .libs/libbmall.lax/libbmsim.a/match_tables.o .libs/libbmall.lax/libbmsim.a/match_units.o .libs/libbmall.lax/libbmsim.a/md5.o .libs/libbmall.lax/lib
+bmsim.a/meters.o .libs/libbmall.lax/libbmsim.a/options_parse.o .libs/libbmall.lax/libbmsim.a/packet.o .libs/libbmall.lax/libbmsim.a/parser.o .libs/libbmall.lax/libbmsim.a/parser_error.o .libs/libbmall.lax
+/libbmsim.a/pcap_file.o .libs/libbmall.lax/libbmsim.a/periodic_task.o .libs/libbmall.lax/libbmsim.a/phv.o .libs/libbmall.lax/libbmsim.a/phv_source.o .libs/libbmall.lax/libbmsim.a/pipeline.o .libs/libbmall
+.lax/libbmsim.a/port_monitor.o .libs/libbmall.lax/libbmsim.a/primitives.o .libs/libbmall.lax/libbmsim.a/simple_pre.o .libs/libbmall.lax/libbmsim.a/simple_pre_lag.o .libs/libbmall.lax/libbmsim.a/source_inf
+o.o .libs/libbmall.lax/libbmsim.a/stacks.o .libs/libbmall.lax/libbmsim.a/stateful.o .libs/libbmall.lax/libbmsim.a/switch.o .libs/libbmall.lax/libbmsim.a/tables.o .libs/libbmall.lax/libbmsim.a/target_parse
+r.o .libs/libbmall.lax/libbmsim.a/transport.o .libs/libbmall.lax/libbmsim.a/transport_nn.o .libs/libbmall.lax/libbmsim.a/version.o .libs/libbmall.lax/libbmsim.a/xxhash.o  .libs/libbmall.lax/libbflpmtrie.a
+/bf_lpm_trie.o  .libs/libbmall.lax/libbmi.a/bmi_interface.o .libs/libbmall.lax/libbmi.a/bmi_port.o  .libs/libbmall.lax/libjson.a/jsoncpp.o  .libs/libbmall.lax/libbmruntime.a/SimplePreLAG_server.o .libs/li
+bbmall.lax/libbmruntime.a/SimplePre_server.o .libs/libbmall.lax/libbmruntime.a/Standard_server.o .libs/libbmall.lax/libbmruntime.a/server.o
+libtool: link: ranlib .libs/libbmall.a
+libtool: link: rm -fr .libs/libbmall.lax
+libtool: link: ( cd ".libs" && rm -f "libbmall.la" && ln -s "../libbmall.la" "libbmall.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src'
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog/src'
+Making all in include
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog/include'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog/include'
+Making all in tests
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog/tests'
+Making all in .
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/tests'
+depbase=`echo utils.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I..  -I../include                           -I../include                           -isystem../third_party/jsoncpp/include
+                  -isystem../third_party/spdlog -I../src/bm_sim -I../src/BMI -isystem ../third_party/gtest/include -isystem ../third_party/jsoncpp/include -DTESTDATADIR=\"/home/p4/src/bmv2-pg-nolog/tests/
+testdata\"   -Wall -Wextra -pthread -g -O3 -pg -MT utils.lo -MD -MP -MF $depbase.Tpo -c -o utils.lo utils.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -I../src/bm_sim -I../src/BMI -isystem ../third_party/gtest/in
+clude -isystem ../third_party/jsoncpp/include -DTESTDATADIR=\"/home/p4/src/bmv2-pg-nolog/tests/testdata\" -Wall -Wextra -pthread -g -O3 -pg -MT utils.lo -MD -MP -MF .deps/utils.Tpo -c utils.cpp  -fPIC -DP
+IC -o .libs/utils.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I.. -I../include -I../include -isystem../third_party/jsoncpp/include -isystem../third_party/spdlog -I../src/bm_sim -I../src/BMI -isystem ../third_party/gtest/in
+clude -isystem ../third_party/jsoncpp/include -DTESTDATADIR=\"/home/p4/src/bmv2-pg-nolog/tests/testdata\" -Wall -Wextra -pthread -g -O3 -pg -MT utils.lo -MD -MP -MF .deps/utils.Tpo -c utils.cpp -o utils.o
+ >/dev/null 2>&1
+/bin/bash ../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libtestutils.la  utils.lo ../src/bm_sim/libbmsim.la -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: (cd .libs/libtestutils.lax/libbmsim.a && ar x "/home/p4/src/bmv2-pg-nolog/tests/../src/bm_sim/.libs/libbmsim.a")
+libtool: link: ar cr .libs/libtestutils.a .libs/utils.o   .libs/libtestutils.lax/libbmsim.a/P4Objects.o .libs/libtestutils.lax/libbmsim.a/_assert.o .libs/libtestutils.lax/libbmsim.a/action_profile.o .libs
+/libtestutils.lax/libbmsim.a/actions.o .libs/libtestutils.lax/libbmsim.a/ageing.o .libs/libtestutils.lax/libbmsim.a/bytecontainer.o .libs/libtestutils.lax/libbmsim.a/calculations.o .libs/libtestutils.lax/
+libbmsim.a/checksums.o .libs/libtestutils.lax/libbmsim.a/conditionals.o .libs/libtestutils.lax/libbmsim.a/context.o .libs/libtestutils.lax/libbmsim.a/control_action.o .libs/libtestutils.lax/libbmsim.a/cou
+nters.o .libs/libtestutils.lax/libbmsim.a/crc_map.o .libs/libtestutils.lax/libbmsim.a/debugger.o .libs/libtestutils.lax/libbmsim.a/deparser.o .libs/libtestutils.lax/libbmsim.a/dev_mgr.o .libs/libtestutils
+.lax/libbmsim.a/dev_mgr_bmi.o .libs/libtestutils.lax/libbmsim.a/dev_mgr_packet_in.o .libs/libtestutils.lax/libbmsim.a/enums.o .libs/libtestutils.lax/libbmsim.a/event_logger.o .libs/libtestutils.lax/libbms
+im.a/expressions.o .libs/libtestutils.lax/libbmsim.a/extern.o .libs/libtestutils.lax/libbmsim.a/fields.o .libs/libtestutils.lax/libbmsim.a/header_unions.o .libs/libtestutils.lax/libbmsim.a/headers.o .libs
+/libtestutils.lax/libbmsim.a/learning.o .libs/libtestutils.lax/libbmsim.a/logger.o .libs/libtestutils.lax/libbmsim.a/lookup_structures.o .libs/libtestutils.lax/libbmsim.a/match_error_codes.o .libs/libtest
+utils.lax/libbmsim.a/match_tables.o .libs/libtestutils.lax/libbmsim.a/match_units.o .libs/libtestutils.lax/libbmsim.a/md5.o .libs/libtestutils.lax/libbmsim.a/meters.o .libs/libtestutils.lax/libbmsim.a/opt
+ions_parse.o .libs/libtestutils.lax/libbmsim.a/packet.o .libs/libtestutils.lax/libbmsim.a/parser.o .libs/libtestutils.lax/libbmsim.a/parser_error.o .libs/libtestutils.lax/libbmsim.a/pcap_file.o .libs/libt
+estutils.lax/libbmsim.a/periodic_task.o .libs/libtestutils.lax/libbmsim.a/phv.o .libs/libtestutils.lax/libbmsim.a/phv_source.o .libs/libtestutils.lax/libbmsim.a/pipeline.o .libs/libtestutils.lax/libbmsim.
+a/port_monitor.o .libs/libtestutils.lax/libbmsim.a/primitives.o .libs/libtestutils.lax/libbmsim.a/simple_pre.o .libs/libtestutils.lax/libbmsim.a/simple_pre_lag.o .libs/libtestutils.lax/libbmsim.a/source_i
+nfo.o .libs/libtestutils.lax/libbmsim.a/stacks.o .libs/libtestutils.lax/libbmsim.a/stateful.o .libs/libtestutils.lax/libbmsim.a/switch.o .libs/libtestutils.lax/libbmsim.a/tables.o .libs/libtestutils.lax/l
+ibbmsim.a/target_parser.o .libs/libtestutils.lax/libbmsim.a/transport.o .libs/libtestutils.lax/libbmsim.a/transport_nn.o .libs/libtestutils.lax/libbmsim.a/version.o .libs/libtestutils.lax/libbmsim.a/xxhas
+h.o
+libtool: link: ranlib .libs/libtestutils.a
+libtool: link: rm -fr .libs/libtestutils.lax
+libtool: link: ( cd ".libs" && rm -f "libtestutils.la" && ln -s "../libtestutils.la" "libtestutils.la" )
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/tests'
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog/tests'
+Making all in targets
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets'
+Making all in simple_switch
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch'
+/usr/local/bin/thrift -out ./gen-cpp/bm --gen cpp -r ./thrift/simple_switch.thrift
+/usr/local/bin/thrift -o . --gen py -r ./thrift/simple_switch.thrift
+touch gen-cpp/bm/simple_switch_constants.cpp gen-cpp/bm/simple_switch_constants.h gen-cpp/bm/SimpleSwitch.cpp gen-cpp/bm/SimpleSwitch.h gen-cpp/bm/simple_switch_types.cpp gen-cpp/bm/simple_switch_types.h
+if mkdir ./sswitch_runtime.test 2>/dev/null; then \
+  rm -rf ./sswitch_runtime/; \
+  cp -r ./gen-py/sswitch_runtime/ ./; \
+  rm -rf ./sswitch_runtime.test; else :; \
+        fi
+make  all-recursive
+make[4]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch'
+Making all in .
+make[5]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch'
+depbase=`echo main.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/include                           -isystem../../third
+_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT main.o -MD -MP -MF $depbase.Tpo -c -o main.o main.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+depbase=`echo simple_switch.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT simple_switch.lo -MD -MP -MF $depbase.Tpo -c -o simple_switch.lo simpl
+e_switch.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo primitives.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT primitives.lo -MD -MP -MF $depbase.Tpo -c -o primitives.lo primitives.
+cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo runner.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT runner.lo -MD -MP -MF $depbase.Tpo -c -o runner.lo runner.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT primitives.lo -MD -MP -MF .deps/primitives.Tpo -c primitives.cpp  -fPIC -DPIC -o .libs/primitives.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT simple_switch.lo -MD -MP -MF .deps/simple_switch.Tpo -c simple_switch.cpp  -fPIC -DPIC -o .libs/simple_switch.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT runner.lo -MD -MP -MF .deps/runner.Tpo -c runner.cpp  -fPIC -DPIC -o .libs/runner.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT runner.lo -MD -MP -MF .deps/runner.Tpo -c runner.cpp -o runner.o >/dev/null 2>&1
+rm -f simple_switch_CLI simple_switch_CLI.tmp
+sed -e 's|@pythondir[@]|/usr/local/lib/python3.10/site-packages|g' ./simple_switch_CLI.in >simple_switch_CLI.tmp
+chmod +x simple_switch_CLI.tmp
+chmod a-w simple_switch_CLI.tmp
+mv simple_switch_CLI.tmp simple_switch_CLI
+depbase=`echo thrift/src/SimpleSwitch_server.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT thrift/src/SimpleSwitch_server.lo -MD -MP -MF $depbase.Tpo -c -o thrif
+t/src/SimpleSwitch_server.lo thrift/src/SimpleSwitch_server.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT thrift/src/SimpleSwitch_server.lo -MD -MP -MF thrift/src/.deps/SimpleSwitch_server.Tpo -c thrift/src/SimpleSwitch_server.cpp  -fPIC -DPIC -o thrift/src/.libs/SimpleSwitch_server.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT primitives.lo -MD -MP -MF .deps/primitives.Tpo -c primitives.cpp -o primitives.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT simple_switch.lo -MD -MP -MF .deps/simple_switch.Tpo -c simple_switch.cpp -o simple_switch.o >/dev/null 2>&1
+depbase=`echo gen-cpp/bm/simple_switch_constants.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT gen-cpp/bm/simple_switch_constants.lo -MD -MP -MF $depbase.Tpo -c -o g
+en-cpp/bm/simple_switch_constants.lo gen-cpp/bm/simple_switch_constants.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/simple_switch_constants.lo -MD -MP -MF gen-cpp/bm/.deps/simple_switch_constants.Tpo -c gen-cpp/bm/simple_switch_constants.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/simple_switch_
+constants.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/simple_switch_constants.lo -MD -MP -MF gen-cpp/bm/.deps/simple_switch_constants.Tpo -c gen-cpp/bm/simple_switch_constants.cpp -o gen-cpp/bm/simple_switch_constants.o >/dev/n
+ull 2>&1
+depbase=`echo gen-cpp/bm/SimpleSwitch.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT gen-cpp/bm/SimpleSwitch.lo -MD -MP -MF $depbase.Tpo -c -o gen-cpp/bm/S
+impleSwitch.lo gen-cpp/bm/SimpleSwitch.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/SimpleSwitch.lo -MD -MP -MF gen-cpp/bm/.deps/SimpleSwitch.Tpo -c gen-cpp/bm/SimpleSwitch.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/SimpleSwitch.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT thrift/src/SimpleSwitch_server.lo -MD -MP -MF thrift/src/.deps/SimpleSwitch_server.Tpo -c thrift/src/SimpleSwitch_server.cpp -o thrift/src/SimpleSwitch_server.o >/dev/null 2>&1
+depbase=`echo gen-cpp/bm/simple_switch_types.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog  -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT gen-cpp/bm/simple_switch_types.lo -MD -MP -MF $depbase.Tpo -c -o gen-c
+pp/bm/simple_switch_types.lo gen-cpp/bm/simple_switch_types.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/simple_switch_types.lo -MD -MP -MF gen-cpp/bm/.deps/simple_switch_types.Tpo -c gen-cpp/bm/simple_switch_types.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/simple_switch_types.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/simple_switch_types.lo -MD -MP -MF gen-cpp/bm/.deps/simple_switch_types.Tpo -c gen-cpp/bm/simple_switch_types.cpp -o gen-cpp/bm/simple_switch_types.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/SimpleSwitch.lo -MD -MP -MF gen-cpp/bm/.deps/SimpleSwitch.Tpo -c gen-cpp/bm/SimpleSwitch.cpp -o gen-cpp/bm/SimpleSwitch.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libsimpleswitch.la  simple_switch.lo primitives.lo thrift/src/SimpleSwitch_server.lo ../../src/bm_sim/libbmsim.l
+a ../../src/bf_lpm_trie/libbflpmtrie.la ../../src/BMI/libbmi.la ../../third_party/jsoncpp/libjson.la -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboost_thread -lpcap -lgmp -lnanoms
+g
+libtool: link: (cd .libs/libsimpleswitch.lax/libbmsim.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/simple_switch/../../src/bm_sim/.libs/libbmsim.a")
+libtool: link: (cd .libs/libsimpleswitch.lax/libbflpmtrie.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/simple_switch/../../src/bf_lpm_trie/.libs/libbflpmtrie.a")
+libtool: link: (cd .libs/libsimpleswitch.lax/libbmi.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/simple_switch/../../src/BMI/.libs/libbmi.a")
+libtool: link: (cd .libs/libsimpleswitch.lax/libjson.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/simple_switch/../../third_party/jsoncpp/.libs/libjson.a")
+copying selected object files to avoid basename conflicts...
+libtool: link: ln .libs/libsimpleswitch.lax/libbmsim.a/primitives.o .libs/libsimpleswitch.lax/lt1-primitives.o || cp .libs/libsimpleswitch.lax/libbmsim.a/primitives.o .libs/libsimpleswitch.lax/lt1-primiti
+ves.o
+libtool: link: ar cr .libs/libsimpleswitch.a .libs/simple_switch.o .libs/primitives.o thrift/src/.libs/SimpleSwitch_server.o .libs/libsimpleswitch.lax/libbmsim.a/P4Objects.o .libs/libsimpleswitch.lax/libb
+msim.a/_assert.o .libs/libsimpleswitch.lax/libbmsim.a/action_profile.o .libs/libsimpleswitch.lax/libbmsim.a/actions.o .libs/libsimpleswitch.lax/libbmsim.a/ageing.o .libs/libsimpleswitch.lax/libbmsim.a/byt
+econtainer.o .libs/libsimpleswitch.lax/libbmsim.a/calculations.o .libs/libsimpleswitch.lax/libbmsim.a/checksums.o .libs/libsimpleswitch.lax/libbmsim.a/conditionals.o .libs/libsimpleswitch.lax/libbmsim.a/c
+ontext.o .libs/libsimpleswitch.lax/libbmsim.a/control_action.o .libs/libsimpleswitch.lax/libbmsim.a/counters.o .libs/libsimpleswitch.lax/libbmsim.a/crc_map.o .libs/libsimpleswitch.lax/libbmsim.a/debugger.
+o .libs/libsimpleswitch.lax/libbmsim.a/deparser.o .libs/libsimpleswitch.lax/libbmsim.a/dev_mgr.o .libs/libsimpleswitch.lax/libbmsim.a/dev_mgr_bmi.o .libs/libsimpleswitch.lax/libbmsim.a/dev_mgr_packet_in.o
+ .libs/libsimpleswitch.lax/libbmsim.a/enums.o .libs/libsimpleswitch.lax/libbmsim.a/event_logger.o .libs/libsimpleswitch.lax/libbmsim.a/expressions.o .libs/libsimpleswitch.lax/libbmsim.a/extern.o .libs/lib
+simpleswitch.lax/libbmsim.a/fields.o .libs/libsimpleswitch.lax/libbmsim.a/header_unions.o .libs/libsimpleswitch.lax/libbmsim.a/headers.o .libs/libsimpleswitch.lax/libbmsim.a/learning.o .libs/libsimpleswit
+ch.lax/libbmsim.a/logger.o .libs/libsimpleswitch.lax/libbmsim.a/lookup_structures.o .libs/libsimpleswitch.lax/libbmsim.a/match_error_codes.o .libs/libsimpleswitch.lax/libbmsim.a/match_tables.o .libs/libsi
+mpleswitch.lax/libbmsim.a/match_units.o .libs/libsimpleswitch.lax/libbmsim.a/md5.o .libs/libsimpleswitch.lax/libbmsim.a/meters.o .libs/libsimpleswitch.lax/libbmsim.a/options_parse.o .libs/libsimpleswitch.
+lax/libbmsim.a/packet.o .libs/libsimpleswitch.lax/libbmsim.a/parser.o .libs/libsimpleswitch.lax/libbmsim.a/parser_error.o .libs/libsimpleswitch.lax/libbmsim.a/pcap_file.o .libs/libsimpleswitch.lax/libbmsi
+m.a/periodic_task.o .libs/libsimpleswitch.lax/libbmsim.a/phv.o .libs/libsimpleswitch.lax/libbmsim.a/phv_source.o .libs/libsimpleswitch.lax/libbmsim.a/pipeline.o .libs/libsimpleswitch.lax/libbmsim.a/port_m
+onitor.o .libs/libsimpleswitch.lax/lt1-primitives.o .libs/libsimpleswitch.lax/libbmsim.a/simple_pre.o .libs/libsimpleswitch.lax/libbmsim.a/simple_pre_lag.o .libs/libsimpleswitch.lax/libbmsim.a/source_info
+.o .libs/libsimpleswitch.lax/libbmsim.a/stacks.o .libs/libsimpleswitch.lax/libbmsim.a/stateful.o .libs/libsimpleswitch.lax/libbmsim.a/switch.o .libs/libsimpleswitch.lax/libbmsim.a/tables.o .libs/libsimple
+switch.lax/libbmsim.a/target_parser.o .libs/libsimpleswitch.lax/libbmsim.a/transport.o .libs/libsimpleswitch.lax/libbmsim.a/transport_nn.o .libs/libsimpleswitch.lax/libbmsim.a/version.o .libs/libsimpleswi
+tch.lax/libbmsim.a/xxhash.o .libs/libsimpleswitch.lax/libbflpmtrie.a/bf_lpm_trie.o .libs/libsimpleswitch.lax/libbmi.a/bmi_interface.o .libs/libsimpleswitch.lax/libbmi.a/bmi_port.o .libs/libsimpleswitch.la
+x/libjson.a/jsoncpp.o
+libtool: link: ranlib .libs/libsimpleswitch.a
+libtool: link: rm -fr .libs/libsimpleswitch.lax .libs/libsimpleswitch.lax
+libtool: link: ( cd ".libs" && rm -f "libsimpleswitch.la" && ln -s "../libsimpleswitch.la" "libsimpleswitch.la" )
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libsimpleswitch_runner.la -rpath /usr/local/lib runner.lo  libsimpleswitch.la -lboost_thread -lpcap -lgmp -lnano
+msg
+libtool: link: g++  -fPIC -DPIC -shared -nostdlib /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o  .libs/runner.o  -Wl,--whole-archive ./.lib
+s/libsimpleswitch.a -Wl,--no-whole-archive  -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboost_thread -lpcap -lgmp -lnanomsg -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_6
+4-linux-gnu/11/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-
+gnu/11/../../.. -lstdc++ -lm -lc -lgcc_s /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o  -pthread -g -O3 -pg   -pthread -Wl,-soname -Wl,libsim
+pleswitch_runner.so.0 -o .libs/libsimpleswitch_runner.so.0.0.0
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libsimpleswitch_thrift.la -rpath /usr/local/lib gen-cpp/bm/simple_switch_constants.lo gen-cpp/bm/SimpleSwitch.lo
+ gen-cpp/bm/simple_switch_types.lo  -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++  -fPIC -DPIC -shared -nostdlib /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o  gen-cpp/bm/.libs/simple_switch_constants.o
+ gen-cpp/bm/.libs/SimpleSwitch.o gen-cpp/bm/.libs/simple_switch_types.o   -lboost_thread -lpcap -lgmp -lnanomsg -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-
+gnu -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -lstdc++ -lm -lc -lgc
+c_s /usr/lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o  -pthread -g -O3 -pg   -pthread -Wl,-soname -Wl,libsimpleswitch_thrift.so.0 -o .libs/libsim
+pleswitch_thrift.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libsimpleswitch_thrift.so.0" && ln -s "libsimpleswitch_thrift.so.0.0.0" "libsimpleswitch_thrift.so.0")
+libtool: link: (cd ".libs" && rm -f "libsimpleswitch_thrift.so" && ln -s "libsimpleswitch_thrift.so.0.0.0" "libsimpleswitch_thrift.so")
+libtool: link: ar cr .libs/libsimpleswitch_thrift.a  gen-cpp/bm/simple_switch_constants.o gen-cpp/bm/SimpleSwitch.o gen-cpp/bm/simple_switch_types.o
+libtool: link: ranlib .libs/libsimpleswitch_thrift.a
+libtool: link: ( cd ".libs" && rm -f "libsimpleswitch_thrift.la" && ln -s "../libsimpleswitch_thrift.la" "libsimpleswitch_thrift.la" )
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg -rdynamic  -o simple_switch main.o ../../src/bm_runtime/libbmruntime.la ../../thrift_src/libruntimestubs.la libsimple
+switch.la libsimpleswitch_thrift.la -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++ -Wall -Wextra -pthread -g -O3 -pg -rdynamic -o .libs/simple_switch main.o  ../../src/bm_runtime/.libs/libbmruntime.a ../../thrift_src/.libs/libruntimestubs.so ./.libs/libsimpleswitch.a
+-lboost_system -lthrift -lboost_program_options -lboost_filesystem ./.libs/libsimpleswitch_thrift.so -lboost_thread -lpcap -lgmp -lnanomsg -pthread
+libtool: link: (cd ".libs" && rm -f "libsimpleswitch_runner.so.0" && ln -s "libsimpleswitch_runner.so.0.0.0" "libsimpleswitch_runner.so.0")
+libtool: link: (cd ".libs" && rm -f "libsimpleswitch_runner.so" && ln -s "libsimpleswitch_runner.so.0.0.0" "libsimpleswitch_runner.so")
+libtool: link: (cd .libs/libsimpleswitch_runner.lax/libsimpleswitch.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/simple_switch/./.libs/libsimpleswitch.a")
+libtool: link: ar cr .libs/libsimpleswitch_runner.a  runner.o  .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/P4Objects.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/SimpleSwitch_server.o .libs
+/libsimpleswitch_runner.lax/libsimpleswitch.a/_assert.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/action_profile.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/actions.o .libs/libsimpleswit
+ch_runner.lax/libsimpleswitch.a/ageing.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/bf_lpm_trie.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/bmi_interface.o .libs/libsimpleswitch_runner.la
+x/libsimpleswitch.a/bmi_port.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/bytecontainer.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/calculations.o .libs/libsimpleswitch_runner.lax/libsimp
+leswitch.a/checksums.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/conditionals.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/context.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/con
+trol_action.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/counters.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/crc_map.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/debugger.o .libs
+/libsimpleswitch_runner.lax/libsimpleswitch.a/deparser.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/dev_mgr.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/dev_mgr_bmi.o .libs/libsimpleswitch
+_runner.lax/libsimpleswitch.a/dev_mgr_packet_in.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/enums.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/event_logger.o .libs/libsimpleswitch_runner.
+lax/libsimpleswitch.a/expressions.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/extern.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/fields.o .libs/libsimpleswitch_runner.lax/libsimpleswitch
+.a/header_unions.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/headers.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/jsoncpp.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/learning.o .
+libs/libsimpleswitch_runner.lax/libsimpleswitch.a/logger.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/lookup_structures.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/lt1-primitives.o .libs/
+libsimpleswitch_runner.lax/libsimpleswitch.a/match_error_codes.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/match_tables.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/match_units.o .libs/li
+bsimpleswitch_runner.lax/libsimpleswitch.a/md5.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/meters.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/options_parse.o .libs/libsimpleswitch_runner
+.lax/libsimpleswitch.a/packet.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/parser.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/parser_error.o .libs/libsimpleswitch_runner.lax/libsimpleswit
+ch.a/pcap_file.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/periodic_task.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/phv.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/phv_source.o
+ .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/pipeline.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/port_monitor.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/primitives.o .libs/libsi
+mpleswitch_runner.lax/libsimpleswitch.a/simple_pre.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/simple_pre_lag.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/simple_switch.o .libs/libsimples
+witch_runner.lax/libsimpleswitch.a/source_info.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/stacks.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/stateful.o .libs/libsimpleswitch_runner.lax/
+libsimpleswitch.a/switch.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/tables.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/target_parser.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a
+/transport.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/transport_nn.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/version.o .libs/libsimpleswitch_runner.lax/libsimpleswitch.a/xxhash.o
+libtool: link: ranlib .libs/libsimpleswitch_runner.a
+libtool: link: rm -fr .libs/libsimpleswitch_runner.lax
+libtool: link: ( cd ".libs" && rm -f "libsimpleswitch_runner.la" && ln -s "../libsimpleswitch_runner.la" "libsimpleswitch_runner.la" )
+make[5]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch'
+Making all in tests
+make[5]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch/tests'
+Making all in .
+make[6]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch/tests'
+make[6]: Nothing to be done for 'all-am'.
+make[6]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch/tests'
+Making all in CLI_tests
+make[6]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch/tests/CLI_tests'
+make[6]: Nothing to be done for 'all'.
+make[6]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch/tests/CLI_tests'
+make[5]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch/tests'
+make[4]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch'
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/simple_switch'
+Making all in psa_switch
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch'
+/usr/local/bin/thrift -out ./gen-cpp/bm --gen cpp -r ./thrift/psa_switch.thrift
+/usr/local/bin/thrift -o . --gen py -r ./thrift/psa_switch.thrift
+touch gen-cpp/bm/psa_switch_constants.cpp gen-cpp/bm/psa_switch_constants.h gen-cpp/bm/PsaSwitch.cpp gen-cpp/bm/PsaSwitch.h gen-cpp/bm/psa_switch_types.cpp gen-cpp/bm/psa_switch_types.h
+if mkdir ./pswitch_runtime.test 2>/dev/null; then \
+  rm -rf ./pswitch_runtime/; \
+  cp -r ./gen-py/pswitch_runtime/ ./; \
+  rm -rf ./pswitch_runtime.test; else :; \
+        fi
+make  all-recursive
+make[4]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch'
+Making all in .
+make[5]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch'
+depbase=`echo main.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/include                           -isystem../../third
+_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT main.o -MD -MP -MF $depbase.Tpo -c -o main.o main.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+depbase=`echo psa_switch.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT psa_switch.lo -MD -MP -MF $depbase.Tpo -c -o psa_switch.lo psa_switch.c
+pp &&\
+mv -f $depbase.Tpo $depbase.Plo
+depbase=`echo primitives.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT primitives.lo -MD -MP -MF $depbase.Tpo -c -o primitives.lo primitives.c
+pp &&\
+mv -f $depbase.Tpo $depbase.Plo
+rm -f psa_switch_CLI psa_switch_CLI.tmp
+sed -e 's|@pythondir[@]|/usr/local/lib/python3.10/site-packages|g' ./psa_switch_CLI.in >psa_switch_CLI.tmp
+chmod +x psa_switch_CLI.tmp
+chmod a-w psa_switch_CLI.tmp
+mv psa_switch_CLI.tmp psa_switch_CLI
+depbase=`echo externs/psa_counter.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT externs/psa_counter.lo -MD -MP -MF $depbase.Tpo -c -o externs/psa_count
+er.lo externs/psa_counter.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT psa_switch.lo -MD -MP -MF .deps/psa_switch.Tpo -c psa_switch.cpp  -fPIC -DPIC -o .libs/psa_switch.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT primitives.lo -MD -MP -MF .deps/primitives.Tpo -c primitives.cpp  -fPIC -DPIC -o .libs/primitives.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_counter.lo -MD -MP -MF externs/.deps/psa_counter.Tpo -c externs/psa_counter.cpp  -fPIC -DPIC -o externs/.libs/psa_counter.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_counter.lo -MD -MP -MF externs/.deps/psa_counter.Tpo -c externs/psa_counter.cpp -o externs/psa_counter.o >/dev/null 2>&1
+psa_switch.cpp: In member function ‘void bm::psa::PsaSwitch::ingress_thread()’:
+psa_switch.cpp:383:10: warning: unused variable ‘ingress_port’ [-Wunused-variable]
+  383 |     auto ingress_port =
+      |          ^~~~~~~~~~~~
+depbase=`echo externs/psa_meter.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT externs/psa_meter.lo -MD -MP -MF $depbase.Tpo -c -o externs/psa_meter.l
+o externs/psa_meter.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_meter.lo -MD -MP -MF externs/.deps/psa_meter.Tpo -c externs/psa_meter.cpp  -fPIC -DPIC -o externs/.libs/psa_meter.o
+depbase=`echo externs/psa_random.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT externs/psa_random.lo -MD -MP -MF $depbase.Tpo -c -o externs/psa_random
+.lo externs/psa_random.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT primitives.lo -MD -MP -MF .deps/primitives.Tpo -c primitives.cpp -o primitives.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_random.lo -MD -MP -MF externs/.deps/psa_random.Tpo -c externs/psa_random.cpp  -fPIC -DPIC -o externs/.libs/psa_random.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_meter.lo -MD -MP -MF externs/.deps/psa_meter.Tpo -c externs/psa_meter.cpp -o externs/psa_meter.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT psa_switch.lo -MD -MP -MF .deps/psa_switch.Tpo -c psa_switch.cpp -o psa_switch.o >/dev/null 2>&1
+depbase=`echo externs/psa_internet_checksum.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT externs/psa_internet_checksum.lo -MD -MP -MF $depbase.Tpo -c -o externs
+/psa_internet_checksum.lo externs/psa_internet_checksum.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_internet_checksum.lo -MD -MP -MF externs/.deps/psa_internet_checksum.Tpo -c externs/psa_internet_checksum.cpp  -fPIC -DPIC -o externs/.libs/psa_internet_checksum.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_random.lo -MD -MP -MF externs/.deps/psa_random.Tpo -c externs/psa_random.cpp -o externs/psa_random.o >/dev/null 2>&1
+depbase=`echo externs/psa_hash.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT externs/psa_hash.lo -MD -MP -MF $depbase.Tpo -c -o externs/psa_hash.lo
+externs/psa_hash.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_hash.lo -MD -MP -MF externs/.deps/psa_hash.Tpo -c externs/psa_hash.cpp  -fPIC -DPIC -o externs/.libs/psa_hash.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_internet_checksum.lo -MD -MP -MF externs/.deps/psa_internet_checksum.Tpo -c externs/psa_internet_checksum.cpp -o externs/psa_internet_checksum.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT externs/psa_hash.lo -MD -MP -MF externs/.deps/psa_hash.Tpo -c externs/psa_hash.cpp -o externs/psa_hash.o >/dev/null 2>&1
+depbase=`echo thrift/src/PsaSwitch_server.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT thrift/src/PsaSwitch_server.lo -MD -MP -MF $depbase.Tpo -c -o thrift/sr
+c/PsaSwitch_server.lo thrift/src/PsaSwitch_server.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT thrift/src/PsaSwitch_server.lo -MD -MP -MF thrift/src/.deps/PsaSwitch_server.Tpo -c thrift/src/PsaSwitch_server.cpp  -fPIC -DPIC -o thrift/src/.libs/PsaSwitch_server.o
+depbase=`echo gen-cpp/bm/psa_switch_constants.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT gen-cpp/bm/psa_switch_constants.lo -MD -MP -MF $depbase.Tpo -c -o gen-c
+pp/bm/psa_switch_constants.lo gen-cpp/bm/psa_switch_constants.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/psa_switch_constants.lo -MD -MP -MF gen-cpp/bm/.deps/psa_switch_constants.Tpo -c gen-cpp/bm/psa_switch_constants.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/psa_switch_constants.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/psa_switch_constants.lo -MD -MP -MF gen-cpp/bm/.deps/psa_switch_constants.Tpo -c gen-cpp/bm/psa_switch_constants.cpp -o gen-cpp/bm/psa_switch_constants.o >/dev/null 2>&1
+depbase=`echo gen-cpp/bm/PsaSwitch.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT gen-cpp/bm/PsaSwitch.lo -MD -MP -MF $depbase.Tpo -c -o gen-cpp/bm/PsaSw
+itch.lo gen-cpp/bm/PsaSwitch.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/PsaSwitch.lo -MD -MP -MF gen-cpp/bm/.deps/PsaSwitch.Tpo -c gen-cpp/bm/PsaSwitch.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/PsaSwitch.o
+depbase=`echo gen-cpp/bm/psa_switch_types.lo | sed 's|[^/]*$|.deps/&|;s|\.lo$||'`;\
+/bin/bash ../../libtool  --tag=CXX   --mode=compile g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/i
+nclude                           -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT gen-cpp/bm/psa_switch_types.lo -MD -MP -MF $depbase.Tpo -c -o gen-cpp/b
+m/psa_switch_types.lo gen-cpp/bm/psa_switch_types.cpp &&\
+mv -f $depbase.Tpo $depbase.Plo
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/psa_switch_types.lo -MD -MP -MF gen-cpp/bm/.deps/psa_switch_types.Tpo -c gen-cpp/bm/psa_switch_types.cpp  -fPIC -DPIC -o gen-cpp/bm/.libs/psa_switch_types.o
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/psa_switch_types.lo -MD -MP -MF gen-cpp/bm/.deps/psa_switch_types.Tpo -c gen-cpp/bm/psa_switch_types.cpp -o gen-cpp/bm/psa_switch_types.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT gen-cpp/bm/PsaSwitch.lo -MD -MP -MF gen-cpp/bm/.deps/PsaSwitch.Tpo -c gen-cpp/bm/PsaSwitch.cpp -o gen-cpp/bm/PsaSwitch.o >/dev/null 2>&1
+libtool: compile:  g++ -DHAVE_CONFIG_H -I. -I../.. -I../../include -I../../include -isystem../../third_party/jsoncpp/include -isystem../../third_party/spdlog -I./thrift/src/ -I./gen-cpp -Wall -Wextra -pth
+read -g -O3 -pg -MT thrift/src/PsaSwitch_server.lo -MD -MP -MF thrift/src/.deps/PsaSwitch_server.Tpo -c thrift/src/PsaSwitch_server.cpp -o thrift/src/PsaSwitch_server.o >/dev/null 2>&1
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libpsaswitch_thrift.la -rpath /usr/local/lib gen-cpp/bm/psa_switch_constants.lo gen-cpp/bm/PsaSwitch.lo gen-cpp/
+bm/psa_switch_types.lo  -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++  -fPIC -DPIC -shared -nostdlib /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o  gen-cpp/bm/.libs/psa_switch_constants.o ge
+n-cpp/bm/.libs/PsaSwitch.o gen-cpp/bm/.libs/psa_switch_types.o   -lboost_thread -lpcap -lgmp -lnanomsg -L/usr/lib/gcc/x86_64-linux-gnu/11 -L/usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu -L/us
+r/lib/gcc/x86_64-linux-gnu/11/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/11/../../.. -lstdc++ -lm -lc -lgcc_s /usr/
+lib/gcc/x86_64-linux-gnu/11/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crtn.o  -pthread -g -O3 -pg   -pthread -Wl,-soname -Wl,libpsaswitch_thrift.so.0 -o .libs/libpsaswitch_thrif
+t.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libpsaswitch_thrift.so.0" && ln -s "libpsaswitch_thrift.so.0.0.0" "libpsaswitch_thrift.so.0")
+libtool: link: (cd ".libs" && rm -f "libpsaswitch_thrift.so" && ln -s "libpsaswitch_thrift.so.0.0.0" "libpsaswitch_thrift.so")
+libtool: link: ar cr .libs/libpsaswitch_thrift.a  gen-cpp/bm/psa_switch_constants.o gen-cpp/bm/PsaSwitch.o gen-cpp/bm/psa_switch_types.o
+libtool: link: ranlib .libs/libpsaswitch_thrift.a
+libtool: link: ( cd ".libs" && rm -f "libpsaswitch_thrift.la" && ln -s "../libpsaswitch_thrift.la" "libpsaswitch_thrift.la" )
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o libpsaswitch.la  psa_switch.lo primitives.lo externs/psa_counter.lo externs/psa_meter.lo externs/psa_random.lo e
+xterns/psa_internet_checksum.lo externs/psa_hash.lo thrift/src/PsaSwitch_server.lo ../../src/bm_sim/libbmsim.la ../../src/bf_lpm_trie/libbflpmtrie.la ../../src/BMI/libbmi.la ../../third_party/jsoncpp/libj
+son.la -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: (cd .libs/libpsaswitch.lax/libbmsim.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/psa_switch/../../src/bm_sim/.libs/libbmsim.a")
+libtool: link: (cd .libs/libpsaswitch.lax/libbflpmtrie.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/psa_switch/../../src/bf_lpm_trie/.libs/libbflpmtrie.a")
+libtool: link: (cd .libs/libpsaswitch.lax/libbmi.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/psa_switch/../../src/BMI/.libs/libbmi.a")
+libtool: link: (cd .libs/libpsaswitch.lax/libjson.a && ar x "/home/p4/src/bmv2-pg-nolog/targets/psa_switch/../../third_party/jsoncpp/.libs/libjson.a")
+copying selected object files to avoid basename conflicts...
+libtool: link: ln .libs/libpsaswitch.lax/libbmsim.a/primitives.o .libs/libpsaswitch.lax/lt1-primitives.o || cp .libs/libpsaswitch.lax/libbmsim.a/primitives.o .libs/libpsaswitch.lax/lt1-primitives.o
+libtool: link: ar cr .libs/libpsaswitch.a .libs/psa_switch.o .libs/primitives.o externs/.libs/psa_counter.o externs/.libs/psa_meter.o externs/.libs/psa_random.o externs/.libs/psa_internet_checksum.o exter
+ns/.libs/psa_hash.o thrift/src/.libs/PsaSwitch_server.o .libs/libpsaswitch.lax/libbmsim.a/P4Objects.o .libs/libpsaswitch.lax/libbmsim.a/_assert.o .libs/libpsaswitch.lax/libbmsim.a/action_profile.o .libs/l
+ibpsaswitch.lax/libbmsim.a/actions.o .libs/libpsaswitch.lax/libbmsim.a/ageing.o .libs/libpsaswitch.lax/libbmsim.a/bytecontainer.o .libs/libpsaswitch.lax/libbmsim.a/calculations.o .libs/libpsaswitch.lax/li
+bbmsim.a/checksums.o .libs/libpsaswitch.lax/libbmsim.a/conditionals.o .libs/libpsaswitch.lax/libbmsim.a/context.o .libs/libpsaswitch.lax/libbmsim.a/control_action.o .libs/libpsaswitch.lax/libbmsim.a/count
+ers.o .libs/libpsaswitch.lax/libbmsim.a/crc_map.o .libs/libpsaswitch.lax/libbmsim.a/debugger.o .libs/libpsaswitch.lax/libbmsim.a/deparser.o .libs/libpsaswitch.lax/libbmsim.a/dev_mgr.o .libs/libpsaswitch.l
+ax/libbmsim.a/dev_mgr_bmi.o .libs/libpsaswitch.lax/libbmsim.a/dev_mgr_packet_in.o .libs/libpsaswitch.lax/libbmsim.a/enums.o .libs/libpsaswitch.lax/libbmsim.a/event_logger.o .libs/libpsaswitch.lax/libbmsim
+.a/expressions.o .libs/libpsaswitch.lax/libbmsim.a/extern.o .libs/libpsaswitch.lax/libbmsim.a/fields.o .libs/libpsaswitch.lax/libbmsim.a/header_unions.o .libs/libpsaswitch.lax/libbmsim.a/headers.o .libs/l
+ibpsaswitch.lax/libbmsim.a/learning.o .libs/libpsaswitch.lax/libbmsim.a/logger.o .libs/libpsaswitch.lax/libbmsim.a/lookup_structures.o .libs/libpsaswitch.lax/libbmsim.a/match_error_codes.o .libs/libpsaswi
+tch.lax/libbmsim.a/match_tables.o .libs/libpsaswitch.lax/libbmsim.a/match_units.o .libs/libpsaswitch.lax/libbmsim.a/md5.o .libs/libpsaswitch.lax/libbmsim.a/meters.o .libs/libpsaswitch.lax/libbmsim.a/optio
+ns_parse.o .libs/libpsaswitch.lax/libbmsim.a/packet.o .libs/libpsaswitch.lax/libbmsim.a/parser.o .libs/libpsaswitch.lax/libbmsim.a/parser_error.o .libs/libpsaswitch.lax/libbmsim.a/pcap_file.o .libs/libpsa
+switch.lax/libbmsim.a/periodic_task.o .libs/libpsaswitch.lax/libbmsim.a/phv.o .libs/libpsaswitch.lax/libbmsim.a/phv_source.o .libs/libpsaswitch.lax/libbmsim.a/pipeline.o .libs/libpsaswitch.lax/libbmsim.a/
+port_monitor.o .libs/libpsaswitch.lax/lt1-primitives.o .libs/libpsaswitch.lax/libbmsim.a/simple_pre.o .libs/libpsaswitch.lax/libbmsim.a/simple_pre_lag.o .libs/libpsaswitch.lax/libbmsim.a/source_info.o .li
+bs/libpsaswitch.lax/libbmsim.a/stacks.o .libs/libpsaswitch.lax/libbmsim.a/stateful.o .libs/libpsaswitch.lax/libbmsim.a/switch.o .libs/libpsaswitch.lax/libbmsim.a/tables.o .libs/libpsaswitch.lax/libbmsim.a
+/target_parser.o .libs/libpsaswitch.lax/libbmsim.a/transport.o .libs/libpsaswitch.lax/libbmsim.a/transport_nn.o .libs/libpsaswitch.lax/libbmsim.a/version.o .libs/libpsaswitch.lax/libbmsim.a/xxhash.o .libs
+/libpsaswitch.lax/libbflpmtrie.a/bf_lpm_trie.o .libs/libpsaswitch.lax/libbmi.a/bmi_interface.o .libs/libpsaswitch.lax/libbmi.a/bmi_port.o .libs/libpsaswitch.lax/libjson.a/jsoncpp.o
+libtool: link: ranlib .libs/libpsaswitch.a
+libtool: link: rm -fr .libs/libpsaswitch.lax .libs/libpsaswitch.lax
+libtool: link: ( cd ".libs" && rm -f "libpsaswitch.la" && ln -s "../libpsaswitch.la" "libpsaswitch.la" )
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o psa_switch main.o ../../src/bm_runtime/libbmruntime.la ../../thrift_src/libruntimestubs.la libpsaswitch.la libps
+aswitch_thrift.la -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++ -Wall -Wextra -pthread -g -O3 -pg -o .libs/psa_switch main.o  ../../src/bm_runtime/.libs/libbmruntime.a ../../thrift_src/.libs/libruntimestubs.so ./.libs/libpsaswitch.a -lboost_system -
+lthrift -lboost_program_options -lboost_filesystem ./.libs/libpsaswitch_thrift.so -lboost_thread -lpcap -lgmp -lnanomsg -pthread
+make[5]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch'
+Making all in tests
+make[5]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch/tests'
+Making all in .
+make[6]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch/tests'
+make[6]: Nothing to be done for 'all-am'.
+make[6]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch/tests'
+make[5]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch/tests'
+make[4]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch'
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/psa_switch'
+Making all in simple_router
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/simple_router'
+depbase=`echo simple_router.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/include                           -isystem../../third
+_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -MT simple_router.o -MD -MP -MF $depbase.Tpo -c -o simple_router.o simple_router.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+depbase=`echo primitives.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/include                           -isystem../../third
+_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -MT primitives.o -MD -MP -MF $depbase.Tpo -c -o primitives.o primitives.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o simple_router simple_router.o primitives.o ../../src/bm_runtime/libbmruntime.la ../../src/bm_sim/libbmsim.la ../
+../src/bf_lpm_trie/libbflpmtrie.la ../../thrift_src/libruntimestubs.la ../../src/BMI/libbmi.la ../../third_party/jsoncpp/libjson.la -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboo
+st_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++ -Wall -Wextra -pthread -g -O3 -pg -o .libs/simple_router simple_router.o primitives.o  ../../src/bm_runtime/.libs/libbmruntime.a ../../src/bm_sim/.libs/libbmsim.a ../../src/bf_lpm_trie/
+.libs/libbflpmtrie.a ../../thrift_src/.libs/libruntimestubs.so ../../src/BMI/.libs/libbmi.a ../../third_party/jsoncpp/.libs/libjson.a -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lb
+oost_thread -lpcap -lgmp -lnanomsg -pthread
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/simple_router'
+Making all in l2_switch
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/l2_switch'
+Making all in .
+make[4]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/l2_switch'
+depbase=`echo l2_switch.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/include                           -isystem../../third
+_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -MT l2_switch.o -MD -MP -MF $depbase.Tpo -c -o l2_switch.o l2_switch.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+depbase=`echo primitives.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../..  -I../../include                           -I../../include                           -isystem../../third_party/jsoncpp/include                           -isystem../../third
+_party/spdlog  -Wall -Wextra -pthread -g -O3 -pg -MT primitives.o -MD -MP -MF $depbase.Tpo -c -o primitives.o primitives.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+/bin/bash ../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o l2_switch l2_switch.o primitives.o ../../src/bm_runtime/libbmruntime.la ../../src/bm_sim/libbmsim.la ../../src/b
+f_lpm_trie/libbflpmtrie.la ../../thrift_src/libruntimestubs.la ../../src/BMI/libbmi.la ../../third_party/jsoncpp/libjson.la -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboost_threa
+d -lpcap -lgmp -lnanomsg
+libtool: link: g++ -Wall -Wextra -pthread -g -O3 -pg -o .libs/l2_switch l2_switch.o primitives.o  ../../src/bm_runtime/.libs/libbmruntime.a ../../src/bm_sim/.libs/libbmsim.a ../../src/bf_lpm_trie/.libs/li
+bbflpmtrie.a ../../thrift_src/.libs/libruntimestubs.so ../../src/BMI/.libs/libbmi.a ../../third_party/jsoncpp/.libs/libjson.a -lboost_system -lthrift -lboost_program_options -lboost_filesystem -lboost_thr
+ead -lpcap -lgmp -lnanomsg -pthread
+make[4]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/l2_switch'
+Making all in learn_client
+make[4]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets/l2_switch/learn_client'
+depbase=`echo learn_client.o | sed 's|[^/]*$|.deps/&|;s|\.o$||'`;\
+g++ -DHAVE_CONFIG_H -I. -I../../..  -I../../../include                           -I../../../include                           -isystem../../../third_party/jsoncpp/include                           -isyste
+m../../../third_party/spdlog -I../../../thrift_src/gen-cpp  -Wall -Wextra -pthread -g -O3 -pg -MT learn_client.o -MD -MP -MF $depbase.Tpo -c -o learn_client.o learn_client.cpp &&\
+mv -f $depbase.Tpo $depbase.Po
+/bin/bash ../../../libtool  --tag=CXX   --mode=link g++ -Wall -Wextra -pthread -g -O3 -pg   -o learn_client learn_client.o ../../../src/bm_apps/libbmapps.la -lboost_thread -lpcap -lgmp -lnanomsg
+libtool: link: g++ -Wall -Wextra -pthread -g -O3 -pg -o .libs/learn_client learn_client.o  ../../../src/bm_apps/.libs/libbmapps.a /home/p4/src/bmv2-pg-nolog/thrift_src/.libs/libruntimestubs.so -lthrift -l
+boost_thread -lpcap -lgmp -lnanomsg -pthread
+make[4]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/l2_switch/learn_client'
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets/l2_switch'
+make[3]: Entering directory '/home/p4/src/bmv2-pg-nolog/targets'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets'
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog/targets'
+Making all in tools
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog/tools'
+rm -f bm_CLI bm_CLI.tmp
+rm -f bm_p4dbg bm_p4dbg.tmp
+rm -f bm_nanomsg_events bm_nanomsg_events.tmp
+sed -e 's|@pythondir[@]|/usr/local/lib/python3.10/site-packages|g' ./bm_CLI.in >bm_CLI.tmp
+sed -e 's|@pythondir[@]|/usr/local/lib/python3.10/site-packages|g' ./bm_p4dbg.in >bm_p4dbg.tmp
+sed -e 's|@pythondir[@]|/usr/local/lib/python3.10/site-packages|g' ./bm_nanomsg_events.in >bm_nanomsg_events.tmp
+chmod +x bm_CLI.tmp
+chmod +x bm_p4dbg.tmp
+chmod +x bm_nanomsg_events.tmp
+chmod a-w bm_CLI.tmp
+chmod a-w bm_p4dbg.tmp
+chmod a-w bm_nanomsg_events.tmp
+mv bm_CLI.tmp bm_CLI
+mv bm_p4dbg.tmp bm_p4dbg
+mv bm_nanomsg_events.tmp bm_nanomsg_events
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog/tools'
+make[2]: Entering directory '/home/p4/src/bmv2-pg-nolog'
+make[2]: Leaving directory '/home/p4/src/bmv2-pg-nolog'
+make[1]: Leaving directory '/home/p4/src/bmv2-pg-nolog'
