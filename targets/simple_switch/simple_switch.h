@@ -30,9 +30,14 @@
 
 #include <memory>
 #include <chrono>
+#include <string>
 #include <thread>
 #include <vector>
 #include <functional>
+
+#include "direct_pipeline/direct_packet.hpp"
+#include "direct_pipeline/direct_tables.hpp"
+#include <unordered_map>
 
 // TODO(antonin)
 // experimental support for priority queueing
@@ -75,6 +80,10 @@ class SimpleSwitch : public Switch {
 
   static constexpr port_t default_drop_port = 511;
   static constexpr size_t default_nb_queues_per_port = 1;
+
+  direct_ingress_forward_table ingress_forward;
+  direct_ingress_ipv4_lpm_table ingress_ipv4_lpm;
+  direct_egress_send_frame_table egress_send_frame;
 
  private:
   using clock = std::chrono::high_resolution_clock;
@@ -172,16 +181,16 @@ class SimpleSwitch : public Switch {
   ts_res get_ts() const;
 
   // TODO(antonin): switch to pass by value?
-  void enqueue(port_t egress_port, std::unique_ptr<Packet> &&packet);
+  void enqueue(port_t egress_port, std::unique_ptr<DirectPacket> &&packet);
 
   void copy_field_list_and_set_type(
-      const std::unique_ptr<Packet> &packet,
-      const std::unique_ptr<Packet> &packet_copy,
+      const std::unique_ptr<DirectPacket> &packet,
+      const std::unique_ptr<DirectPacket> &packet_copy,
       PktInstanceType copy_type, p4object_id_t field_list_id);
 
   void check_queueing_metadata();
 
-  void multicast(Packet *packet, unsigned int mgid);
+  void multicast(DirectPacket *packet, unsigned int mgid);
 
  private:
   port_t drop_port;
@@ -190,9 +199,9 @@ class SimpleSwitch : public Switch {
   // for these queues, the write operation is non-blocking and we drop the
   // packet if the queue is full
   size_t nb_queues_per_port;
-  bm::QueueingLogicPriRL<std::unique_ptr<Packet>, EgressThreadMapper>
+  bm::QueueingLogicPriRL<std::unique_ptr<DirectPacket>, EgressThreadMapper>
   egress_buffers;
-  Queue<std::unique_ptr<Packet> > output_buffer;
+  Queue<std::unique_ptr<DirectPacket> > output_buffer;
   TransmitFn my_transmit_fn;
   std::shared_ptr<McSimplePreLAG> pre;
   clock::time_point start;

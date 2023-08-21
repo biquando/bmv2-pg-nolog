@@ -35,8 +35,15 @@
 #include <unordered_map>
 #include <utility>
 
+#include "direct_pipeline/direct_tables.hpp"
 #include "simple_switch.h"
 #include "register_access.h"
+#include <bf_lpm_trie/bf_lpm_trie.h>
+#include "direct_pipeline/direct_packet.hpp"
+#include "direct_pipeline/direct_tables.hpp"
+#include "direct_pipeline/ubpf_common.hpp"
+
+// #define DIRECT_PACKET_LOGGING
 
 namespace {
 
@@ -134,7 +141,7 @@ class SimpleSwitch::InputBuffer {
   InputBuffer(size_t capacity_hi, size_t capacity_lo)
       : capacity_hi(capacity_hi), capacity_lo(capacity_lo) { }
 
-  int push_front(PacketType packet_type, std::unique_ptr<Packet> &&item) {
+  int push_front(PacketType packet_type, std::unique_ptr<DirectPacket> &&item) {
     switch (packet_type) {
       case PacketType::NORMAL:
         return push_front(&queue_lo, capacity_lo, &cvar_can_push_lo,
@@ -151,7 +158,7 @@ class SimpleSwitch::InputBuffer {
     return 0;
   }
 
-  void pop_back(std::unique_ptr<Packet> *pItem) {
+  void pop_back(std::unique_ptr<DirectPacket> *pItem) {
     Lock lock(mutex);
     cvar_can_pop.wait(
         lock, [this] { return (queue_hi.size() + queue_lo.size()) > 0; });
@@ -172,11 +179,11 @@ class SimpleSwitch::InputBuffer {
  private:
   using Mutex = std::mutex;
   using Lock = std::unique_lock<Mutex>;
-  using QueueImpl = std::deque<std::unique_ptr<Packet> >;
+  using QueueImpl = std::deque<std::unique_ptr<DirectPacket> >;
 
   int push_front(QueueImpl *queue, size_t capacity,
                  std::condition_variable *cvar,
-                 std::unique_ptr<Packet> &&item, bool blocking) {
+                 std::unique_ptr<DirectPacket> &&item, bool blocking) {
     Lock lock(mutex);
     while (queue->size() == capacity) {
       if (!blocking) return 0;
@@ -232,6 +239,62 @@ SimpleSwitch::SimpleSwitch(bool enable_swap, port_t drop_port,
   force_arith_header("intrinsic_metadata");
 
   import_primitives(this);
+
+  /* Initialize tables */
+
+  // Ingress table forward
+  direct_ingress_forward_key in_forward_key;
+  direct_ingress_forward_value in_forward_value;
+  // table_add forward set_dmac 10.0.0.10 => 00:04:00:00:00:00
+  in_forward_key = {0x0a00000a};
+  in_forward_value = {
+    direct_ingress_action_set_dmac,
+    {.set_dmac={0x000400000000}}
+  };
+  ingress_forward.add_entry(&in_forward_key, &in_forward_value);
+  // table_add forward set_dmac 10.0.1.10 => 00:04:00:00:00:01
+  in_forward_key = {0x0a00010a};
+  in_forward_value = {
+    direct_ingress_action_set_dmac,
+    {.set_dmac={0x000400000001}}
+  };
+  ingress_forward.add_entry(&in_forward_key, &in_forward_value);
+
+  // Ingress table ipv4_lpm
+  direct_ingress_ipv4_lpm_key in_ipv4_lpm_key;
+  direct_ingress_ipv4_lpm_value in_ipv4_lpm_value;
+  // table_add ipv4_lpm set_nhop 10.0.0.10/32 => 10.0.0.10 1
+  in_ipv4_lpm_key = {0x0a00000a, 32};
+  in_ipv4_lpm_value = {
+    direct_ingress_action_set_nhop,
+    {.set_nhop={0x0a00000a, 1}}
+  };
+  ingress_ipv4_lpm.add_entry(&in_ipv4_lpm_key, &in_ipv4_lpm_value);
+  // table_add ipv4_lpm set_nhop 10.0.1.10/32 => 10.0.1.10 2
+  in_ipv4_lpm_key = {0x0a00010a, 32};
+  in_ipv4_lpm_value = {
+    direct_ingress_action_set_nhop,
+    {.set_nhop={0x0a00010a, 2}}
+  };
+  ingress_ipv4_lpm.add_entry(&in_ipv4_lpm_key, &in_ipv4_lpm_value);
+
+  // Egress table send_frame
+  direct_egress_send_frame_key eg_send_frame_key;
+  direct_egress_send_frame_value eg_send_frame_value;
+  // table_add send_frame rewrite_mac 1 => 00:aa:bb:00:00:00
+  eg_send_frame_key = {1};
+  eg_send_frame_value = {
+    direct_egress_action_rewrite_mac,
+    {.rewrite_mac={0x00aabb000000}}
+  };
+  egress_send_frame.add_entry(&eg_send_frame_key, &eg_send_frame_value);
+  // table_add send_frame rewrite_mac 2 => 00:aa:bb:00:00:01
+  eg_send_frame_key = {2};
+  eg_send_frame_value = {
+    direct_egress_action_rewrite_mac,
+    {.rewrite_mac={0x00aabb000001}}
+  };
+  egress_send_frame.add_entry(&eg_send_frame_key, &eg_send_frame_value);
 }
 
 int
@@ -239,6 +302,7 @@ SimpleSwitch::receive_(port_t port_num, const char *buffer, int len) {
   // we limit the packet buffer to original size + 512 bytes, which means we
   // cannot add more than 512 bytes of header data to the packet, which should
   // be more than enough
+  /*
   auto packet = new_packet_ptr(port_num, packet_id++, len,
                                bm::PacketBuffer(len + 512, buffer, len));
 
@@ -267,6 +331,19 @@ SimpleSwitch::receive_(port_t port_num, const char *buffer, int len) {
 
   input_buffer->push_front(
       InputBuffer::PacketType::NORMAL, std::move(packet));
+
+  */
+
+  auto dir_packet = std::unique_ptr<DirectPacket>(new DirectPacket(
+    port_num, packet_id++, buffer, len
+  ));
+
+#ifdef DIRECT_PACKET_LOGGING
+  dir_packet->set_log_file("/tmp/dp.log");
+#endif
+
+  input_buffer->push_front(
+      InputBuffer::PacketType::NORMAL, std::move(dir_packet));
   return 0;
 }
 
@@ -384,14 +461,24 @@ SimpleSwitch::set_transmit_fn(TransmitFn fn) {
 void
 SimpleSwitch::transmit_thread() {
   while (1) {
-    std::unique_ptr<Packet> packet;
-    output_buffer.pop_back(&packet);
-    if (packet == nullptr) break;
-    BMELOG(packet_out, *packet);
-    BMLOG_DEBUG_PKT(*packet, "Transmitting packet of size {} out of port {}",
-                    packet->get_data_size(), packet->get_egress_port());
-    my_transmit_fn(packet->get_egress_port(), packet->get_packet_id(),
-                   packet->data(), packet->get_data_size());
+    // std::unique_ptr<Packet> packet;
+    // output_buffer.pop_back(&packet);
+    // if (packet == nullptr) break;
+    // BMELOG(packet_out, *packet);
+    // BMLOG_DEBUG_PKT(*packet, "Transmitting packet of size {} out of port {}",
+    //                 packet->get_data_size(), packet->get_egress_port());
+    // my_transmit_fn(packet->get_egress_port(), packet->get_packet_id(),
+    //                packet->data(), packet->get_data_size());
+    std::unique_ptr<DirectPacket> dir_packet;
+    output_buffer.pop_back(&dir_packet);
+    if (dir_packet == nullptr) break;
+    dir_packet->log("before transmission");
+    my_transmit_fn(dir_packet->standard_metadata.egress_port,
+                   dir_packet->id,
+                   dir_packet->bytes.data(),
+                   dir_packet->bytes.size());
+
+    dir_packet->log("after transmission");
   }
 }
 
@@ -401,39 +488,44 @@ SimpleSwitch::get_ts() const {
 }
 
 void
-SimpleSwitch::enqueue(port_t egress_port, std::unique_ptr<Packet> &&packet) {
-    packet->set_egress_port(egress_port);
+SimpleSwitch::enqueue(port_t egress_port, std::unique_ptr<DirectPacket> &&dir_packet) {
+    // packet->set_egress_port(egress_port);
 
-    PHV *phv = packet->get_phv();
+    // PHV *phv = packet->get_phv();
 
-    if (with_queueing_metadata) {
-      phv->get_field("queueing_metadata.enq_timestamp").set(get_ts().count());
-      phv->get_field("queueing_metadata.enq_qdepth")
-          .set(egress_buffers.size(egress_port));
-    }
+    // if (with_queueing_metadata) {
+    //   phv->get_field("queueing_metadata.enq_timestamp").set(get_ts().count());
+    //   phv->get_field("queueing_metadata.enq_qdepth")
+    //       .set(egress_buffers.size(egress_port));
+    // }
 
-    size_t priority = phv->has_field(SSWITCH_PRIORITY_QUEUEING_SRC) ?
-        phv->get_field(SSWITCH_PRIORITY_QUEUEING_SRC).get<size_t>() : 0u;
-    if (priority >= nb_queues_per_port) {
-      bm::Logger::get()->error("Priority out of range, dropping packet");
-      return;
-    }
-    egress_buffers.push_front(
-        egress_port, nb_queues_per_port - 1 - priority,
-        std::move(packet));
+    // size_t priority = phv->has_field(SSWITCH_PRIORITY_QUEUEING_SRC) ?
+    //     phv->get_field(SSWITCH_PRIORITY_QUEUEING_SRC).get<size_t>() : 0u;
+    // if (priority >= nb_queues_per_port) {
+    //   bm::Logger::get()->error("Priority out of range, dropping packet");
+    //   return;
+    // }
+    // egress_buffers.push_front(
+    //     egress_port, nb_queues_per_port - 1 - priority,
+    //     std::move(packet));
+
+  dir_packet->standard_metadata.egress_port = egress_port;
+  egress_buffers.push_front(
+      egress_port, nb_queues_per_port - 1 - 0u,
+      std::move(dir_packet));
 }
 
 // used for ingress cloning, resubmit
 void
 SimpleSwitch::copy_field_list_and_set_type(
-    const std::unique_ptr<Packet> &packet,
-    const std::unique_ptr<Packet> &packet_copy,
+    const std::unique_ptr<DirectPacket> &packet,
+    const std::unique_ptr<DirectPacket> &packet_copy,
     PktInstanceType copy_type, p4object_id_t field_list_id) {
-  PHV *phv_copy = packet_copy->get_phv();
-  phv_copy->reset_metadata();
-  FieldList *field_list = this->get_field_list(field_list_id);
-  field_list->copy_fields_between_phvs(phv_copy, packet->get_phv());
-  phv_copy->get_field("standard_metadata.instance_type").set(copy_type);
+  // PHV *phv_copy = packet_copy->get_phv();
+  // phv_copy->reset_metadata();
+  // FieldList *field_list = this->get_field_list(field_list_id);
+  // field_list->copy_fields_between_phvs(phv_copy, packet->get_phv());
+  // phv_copy->get_field("standard_metadata.instance_type").set(copy_type);
 }
 
 void
@@ -456,22 +548,253 @@ SimpleSwitch::check_queueing_metadata() {
 }
 
 void
-SimpleSwitch::multicast(Packet *packet, unsigned int mgid) {
-  auto *phv = packet->get_phv();
-  auto &f_rid = phv->get_field("intrinsic_metadata.egress_rid");
-  const auto pre_out = pre->replicate({mgid});
-  auto packet_size =
-      packet->get_register(RegisterAccess::PACKET_LENGTH_REG_IDX);
-  for (const auto &out : pre_out) {
-    auto egress_port = out.egress_port;
-    BMLOG_DEBUG_PKT(*packet, "Replicating packet on port {}", egress_port);
-    f_rid.set(out.rid);
-    std::unique_ptr<Packet> packet_copy = packet->clone_with_phv_ptr();
-    RegisterAccess::clear_all(packet_copy.get());
-    packet_copy->set_register(RegisterAccess::PACKET_LENGTH_REG_IDX,
-                              packet_size);
-    enqueue(egress_port, std::move(packet_copy));
+SimpleSwitch::multicast(DirectPacket *packet, unsigned int mgid) {
+  // auto *phv = packet->get_phv();
+  // auto &f_rid = phv->get_field("intrinsic_metadata.egress_rid");
+  // const auto pre_out = pre->replicate({mgid});
+  // auto packet_size =
+  //     packet->get_register(RegisterAccess::PACKET_LENGTH_REG_IDX);
+  // for (const auto &out : pre_out) {
+  //   auto egress_port = out.egress_port;
+  //   BMLOG_DEBUG_PKT(*packet, "Replicating packet on port {}", egress_port);
+  //   f_rid.set(out.rid);
+  //   std::unique_ptr<Packet> packet_copy = packet->clone_with_phv_ptr();
+  //   RegisterAccess::clear_all(packet_copy.get());
+  //   packet_copy->set_register(RegisterAccess::PACKET_LENGTH_REG_IDX,
+  //                             packet_size);
+  //   enqueue(egress_port, std::move(packet_copy));
+  // }
+}
+
+#define BPF_MASK(t, w) ((((t)(1)) << (w)) - (t)1)
+#define BYTES(w) ((w) / 8)
+#define write_partial(a, w, s, v) do { *((uint8_t*)a) = ((*((uint8_t*)a)) & ~(BPF_MASK(uint8_t, w) << s)) | (v << s) ; } while (0)
+#define write_byte(base, offset, v) do { *(uint8_t*)((base) + (offset)) = (v); } while (0)
+
+static uint32_t
+bpf_htonl(uint32_t val) {
+    return htonl(val);
+}
+static uint16_t
+bpf_htons(uint16_t val) {
+    return htons(val);
+}
+static uint64_t
+bpf_htonll(uint64_t val) {
+    return htonll(val);
+}
+
+static bool direct_parse(std::unique_ptr<DirectPacket> &dir_packet) {
+  unsigned char *pkt = (unsigned char*) dir_packet->bytes.data();
+
+  auto &packetOffsetInBits = dir_packet->packetOffsetInBits;
+  auto &headers = dir_packet->headers;
+  headers = {
+    .ethernet = {
+      .valid = 0
+    },
+    .ipv4 = {
+      .valid = 0
+    }
+  };
+
+  headers.ethernet.dstAddr = (uint64_t)((load_dword(pkt, BYTES(packetOffsetInBits)) >> 16) & BPF_MASK(uint64_t, 48));
+  packetOffsetInBits += 48;
+
+  headers.ethernet.srcAddr = (uint64_t)((load_dword(pkt, BYTES(packetOffsetInBits)) >> 16) & BPF_MASK(uint64_t, 48));
+  packetOffsetInBits += 48;
+
+  headers.ethernet.etherType = (uint16_t)((load_half(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 16;
+
+  headers.ethernet.valid = 1;
+  uint16_t select_0;
+  select_0 = headers.ethernet.etherType;
+  if (select_0 == 0x800)goto ipv4;
+  else goto accept;
+
+ipv4:
+  headers.ipv4.version = (uint8_t)((load_byte(pkt, BYTES(packetOffsetInBits)) >> 4) & BPF_MASK(uint8_t, 4));
+  packetOffsetInBits += 4;
+
+  headers.ipv4.ihl = (uint8_t)((load_byte(pkt, BYTES(packetOffsetInBits))) & BPF_MASK(uint8_t, 4));
+  packetOffsetInBits += 4;
+
+  headers.ipv4.diffserv = (uint8_t)((load_byte(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 8;
+
+  headers.ipv4.totalLen = (uint16_t)((load_half(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 16;
+
+  headers.ipv4.identification = (uint16_t)((load_half(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 16;
+
+  headers.ipv4.flags = (uint8_t)((load_byte(pkt, BYTES(packetOffsetInBits)) >> 5) & BPF_MASK(uint8_t, 3));
+  packetOffsetInBits += 3;
+
+  headers.ipv4.fragOffset = (uint16_t)((load_half(pkt, BYTES(packetOffsetInBits))) & BPF_MASK(uint16_t, 13));
+  packetOffsetInBits += 13;
+
+  headers.ipv4.ttl = (uint8_t)((load_byte(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 8;
+
+  headers.ipv4.protocol = (uint8_t)((load_byte(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 8;
+
+  headers.ipv4.hdrChecksum = (uint16_t)((load_half(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 16;
+
+  headers.ipv4.srcAddr = (uint32_t)((load_word(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 32;
+
+  headers.ipv4.dstAddr = (uint32_t)((load_word(pkt, BYTES(packetOffsetInBits))));
+  packetOffsetInBits += 32;
+
+  headers.ipv4.valid = 1;
+  goto accept;
+
+accept:
+  return true;
+reject:
+  return false;
+}
+
+static bool direct_deparse(std::unique_ptr<DirectPacket> &dir_packet) {
+  unsigned char *pkt = (unsigned char*) dir_packet->bytes.data();
+  auto &packetOffsetInBits = dir_packet->packetOffsetInBits;
+  auto &headers = dir_packet->headers;
+  unsigned char ebpf_byte;
+
+  int outHeaderLength = 0;
+  {
+    if (headers.ethernet.valid) 
+      outHeaderLength += 112;
+    if (headers.ipv4.valid) 
+      outHeaderLength += 160;
   }
+  int outHeaderOffset = BYTES(outHeaderLength) - BYTES(packetOffsetInBits);
+  pkt -= outHeaderOffset;
+  packetOffsetInBits = 0;
+
+  if (headers.ethernet.valid) {
+    headers.ethernet.dstAddr = htonll(headers.ethernet.dstAddr << 16);
+    ebpf_byte = ((char*)(&headers.ethernet.dstAddr))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.dstAddr))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.dstAddr))[2];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 2, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.dstAddr))[3];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 3, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.dstAddr))[4];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 4, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.dstAddr))[5];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 5, (ebpf_byte));
+    packetOffsetInBits += 48;
+
+    headers.ethernet.srcAddr = htonll(headers.ethernet.srcAddr << 16);
+    ebpf_byte = ((char*)(&headers.ethernet.srcAddr))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.srcAddr))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.srcAddr))[2];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 2, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.srcAddr))[3];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 3, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.srcAddr))[4];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 4, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.srcAddr))[5];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 5, (ebpf_byte));
+    packetOffsetInBits += 48;
+
+    headers.ethernet.etherType = bpf_htons(headers.ethernet.etherType);
+    ebpf_byte = ((char*)(&headers.ethernet.etherType))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ethernet.etherType))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    packetOffsetInBits += 16;
+  }
+  if (headers.ipv4.valid) {
+    ebpf_byte = ((char*)(&headers.ipv4.version))[0];
+    write_partial(pkt + BYTES(packetOffsetInBits) + 0, 4, 4, (ebpf_byte >> 0));
+    packetOffsetInBits += 4;
+
+    ebpf_byte = ((char*)(&headers.ipv4.ihl))[0];
+    write_partial(pkt + BYTES(packetOffsetInBits) + 0, 4, 0, (ebpf_byte >> 0));
+    packetOffsetInBits += 4;
+
+    ebpf_byte = ((char*)(&headers.ipv4.diffserv))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    packetOffsetInBits += 8;
+
+    headers.ipv4.totalLen = bpf_htons(headers.ipv4.totalLen);
+    ebpf_byte = ((char*)(&headers.ipv4.totalLen))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.totalLen))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    packetOffsetInBits += 16;
+
+    headers.ipv4.identification = bpf_htons(headers.ipv4.identification);
+    ebpf_byte = ((char*)(&headers.ipv4.identification))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.identification))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    packetOffsetInBits += 16;
+
+    ebpf_byte = ((char*)(&headers.ipv4.flags))[0];
+    write_partial(pkt + BYTES(packetOffsetInBits) + 0, 3, 5, (ebpf_byte >> 0));
+    packetOffsetInBits += 3;
+
+    headers.ipv4.fragOffset = bpf_htons(headers.ipv4.fragOffset << 3);
+    ebpf_byte = ((char*)(&headers.ipv4.fragOffset))[0];
+    write_partial(pkt + BYTES(packetOffsetInBits) + 0, 5, 0, (ebpf_byte >> 3));
+    write_partial(pkt + BYTES(packetOffsetInBits) + 0 + 1, 3, 5, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.fragOffset))[1];
+    write_partial(pkt + BYTES(packetOffsetInBits) + 1, 5, 0, (ebpf_byte >> 3));
+    packetOffsetInBits += 13;
+
+    ebpf_byte = ((char*)(&headers.ipv4.ttl))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    packetOffsetInBits += 8;
+
+    ebpf_byte = ((char*)(&headers.ipv4.protocol))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    packetOffsetInBits += 8;
+
+    headers.ipv4.hdrChecksum = bpf_htons(headers.ipv4.hdrChecksum);
+    ebpf_byte = ((char*)(&headers.ipv4.hdrChecksum))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.hdrChecksum))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    packetOffsetInBits += 16;
+
+    headers.ipv4.srcAddr = htonl(headers.ipv4.srcAddr);
+    ebpf_byte = ((char*)(&headers.ipv4.srcAddr))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.srcAddr))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.srcAddr))[2];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 2, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.srcAddr))[3];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 3, (ebpf_byte));
+    packetOffsetInBits += 32;
+
+    headers.ipv4.dstAddr = htonl(headers.ipv4.dstAddr);
+    ebpf_byte = ((char*)(&headers.ipv4.dstAddr))[0];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 0, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.dstAddr))[1];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 1, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.dstAddr))[2];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 2, (ebpf_byte));
+    ebpf_byte = ((char*)(&headers.ipv4.dstAddr))[3];
+    write_byte(pkt, BYTES(packetOffsetInBits) + 3, (ebpf_byte));
+    packetOffsetInBits += 32;
+  }
+
+accept:
+  return true;
+reject:
+  return false;
 }
 
 void
@@ -479,291 +802,209 @@ SimpleSwitch::ingress_thread() {
   PHV *phv;
 
   while (1) {
-    std::unique_ptr<Packet> packet;
-    input_buffer->pop_back(&packet);
-    if (packet == nullptr) break;
 
-    // TODO(antonin): only update these if swapping actually happened?
-    Parser *parser = this->get_parser("parser");
-    Pipeline *ingress_mau = this->get_pipeline("ingress");
+    std::unique_ptr<DirectPacket> dir_packet;
+    input_buffer->pop_back(&dir_packet);
+    if (dir_packet == nullptr) break;
 
-    phv = packet->get_phv();
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("before ingress");
+#endif
 
-    port_t ingress_port = packet->get_ingress_port();
-    (void) ingress_port;
-    BMLOG_DEBUG_PKT(*packet, "Processing packet received on port {}",
-                    ingress_port);
+    // parse
+    direct_parse(dir_packet);
+    dir_packet->verify_checksum();
 
-    auto ingress_packet_size =
-        packet->get_register(RegisterAccess::PACKET_LENGTH_REG_IDX);
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("after parsing");
+#endif
 
-    /* This looks like it comes out of the blue. However this is needed for
-       ingress cloning. The parser updates the buffer state (pops the parsed
-       headers) to make the deparser's job easier (the same buffer is
-       re-used). But for ingress cloning, the original packet is needed. This
-       kind of looks hacky though. Maybe a better solution would be to have the
-       parser leave the buffer unchanged, and move the pop logic to the
-       deparser. TODO? */
-    const Packet::buffer_state_t packet_in_state = packet->save_buffer_state();
-    parser->parse(packet.get());
-
-    if (phv->has_field("standard_metadata.parser_error")) {
-      phv->get_field("standard_metadata.parser_error").set(
-          packet->get_error_code().get());
+    // ingress pipeline
+    if (dir_packet->headers.ipv4.valid && dir_packet->headers.ipv4.ttl > 0) {
+      ingress_ipv4_lpm.apply(dir_packet);
+      ingress_forward.apply(dir_packet);
     }
 
-    if (phv->has_field("standard_metadata.checksum_error")) {
-      phv->get_field("standard_metadata.checksum_error").set(
-           packet->get_checksum_error() ? 1 : 0);
-    }
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("after ingress pipeline");
+#endif
 
-    ingress_mau->apply(packet.get());
-
-    packet->reset_exit();
-
-    Field &f_egress_spec = phv->get_field("standard_metadata.egress_spec");
-    port_t egress_spec = f_egress_spec.get_uint();
-
-    auto clone_mirror_session_id =
-        RegisterAccess::get_clone_mirror_session_id(packet.get());
-    auto clone_field_list = RegisterAccess::get_clone_field_list(packet.get());
-
-    int learn_id = RegisterAccess::get_lf_field_list(packet.get());
-    unsigned int mgid = 0u;
-
-    // detect mcast support, if this is true we assume that other fields needed
-    // for mcast are also defined
-    if (phv->has_field("intrinsic_metadata.mcast_grp")) {
-      Field &f_mgid = phv->get_field("intrinsic_metadata.mcast_grp");
-      mgid = f_mgid.get_uint();
-    }
-
-    // INGRESS CLONING
-    if (clone_mirror_session_id) {
-      BMLOG_DEBUG_PKT(*packet, "Cloning packet at ingress");
-      RegisterAccess::set_clone_mirror_session_id(packet.get(), 0);
-      RegisterAccess::set_clone_field_list(packet.get(), 0);
-      MirroringSessionConfig config;
-      // Extract the part of clone_mirror_session_id that contains the
-      // actual session id.
-      clone_mirror_session_id &= RegisterAccess::MIRROR_SESSION_ID_MASK;
-      bool is_session_configured = mirroring_get_session(
-          static_cast<mirror_id_t>(clone_mirror_session_id), &config);
-      if (is_session_configured) {
-        const Packet::buffer_state_t packet_out_state =
-            packet->save_buffer_state();
-        packet->restore_buffer_state(packet_in_state);
-        p4object_id_t field_list_id = clone_field_list;
-        std::unique_ptr<Packet> packet_copy = packet->clone_no_phv_ptr();
-        RegisterAccess::clear_all(packet_copy.get());
-        packet_copy->set_register(RegisterAccess::PACKET_LENGTH_REG_IDX,
-                                  ingress_packet_size);
-        // We need to parse again.
-        // The alternative would be to pay the (huge) price of PHV copy for
-        // every ingress packet.
-        // Since parsers can branch on the ingress port, we need to preserve it
-        // to ensure re-parsing gives the same result as the original parse.
-        // TODO(https://github.com/p4lang/behavioral-model/issues/795): other
-        // standard metadata should be preserved as well.
-        packet_copy->get_phv()
-            ->get_field("standard_metadata.ingress_port")
-            .set(ingress_port);
-        parser->parse(packet_copy.get());
-        copy_field_list_and_set_type(packet, packet_copy,
-                                     PKT_INSTANCE_TYPE_INGRESS_CLONE,
-                                     field_list_id);
-        if (config.mgid_valid) {
-          BMLOG_DEBUG_PKT(*packet, "Cloning packet to MGID {}", config.mgid);
-          multicast(packet_copy.get(), config.mgid);
-        }
-        if (config.egress_port_valid) {
-          BMLOG_DEBUG_PKT(*packet, "Cloning packet to egress port {}",
-                          config.egress_port);
-          enqueue(config.egress_port, std::move(packet_copy));
-        }
-        packet->restore_buffer_state(packet_out_state);
-      }
-    }
-
-    // LEARNING
-    if (learn_id > 0) {
-      get_learn_engine()->learn(learn_id, *packet.get());
-    }
-
-    // RESUBMIT
-    auto resubmit_flag = RegisterAccess::get_resubmit_flag(packet.get());
-    if (resubmit_flag) {
-      BMLOG_DEBUG_PKT(*packet, "Resubmitting packet");
-      // get the packet ready for being parsed again at the beginning of
-      // ingress
-      packet->restore_buffer_state(packet_in_state);
-      p4object_id_t field_list_id = resubmit_flag;
-      RegisterAccess::set_resubmit_flag(packet.get(), 0);
-      // TODO(antonin): a copy is not needed here, but I don't yet have an
-      // optimized way of doing this
-      std::unique_ptr<Packet> packet_copy = packet->clone_no_phv_ptr();
-      PHV *phv_copy = packet_copy->get_phv();
-      copy_field_list_and_set_type(packet, packet_copy,
-                                   PKT_INSTANCE_TYPE_RESUBMIT,
-                                   field_list_id);
-      RegisterAccess::clear_all(packet_copy.get());
-      packet_copy->set_register(RegisterAccess::PACKET_LENGTH_REG_IDX,
-                                ingress_packet_size);
-      phv_copy->get_field("standard_metadata.packet_length")
-          .set(ingress_packet_size);
-      input_buffer->push_front(
-          InputBuffer::PacketType::RESUBMIT, std::move(packet_copy));
-      continue;
-    }
-
-    // MULTICAST
-    if (mgid != 0) {
-      BMLOG_DEBUG_PKT(*packet, "Multicast requested for packet");
-      auto &f_instance_type = phv->get_field("standard_metadata.instance_type");
-      f_instance_type.set(PKT_INSTANCE_TYPE_REPLICATION);
-      multicast(packet.get(), mgid);
-      // when doing multicast, we discard the original packet
-      continue;
-    }
-
-    port_t egress_port = egress_spec;
-    BMLOG_DEBUG_PKT(*packet, "Egress port is {}", egress_port);
+    port_t egress_port = dir_packet->standard_metadata.egress_spec;
 
     if (egress_port == drop_port) {  // drop packet
-      BMLOG_DEBUG_PKT(*packet, "Dropping packet at the end of ingress");
       continue;
     }
-    auto &f_instance_type = phv->get_field("standard_metadata.instance_type");
-    f_instance_type.set(PKT_INSTANCE_TYPE_NORMAL);
+    dir_packet->standard_metadata.instance_type = PKT_INSTANCE_TYPE_NORMAL;
 
-    enqueue(egress_port, std::move(packet));
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("after ingress");
+#endif
+
+    enqueue(egress_port, std::move(dir_packet));
+
+    // OLD STUFF
+
+    // std::unique_ptr<Packet> packet;
+    // input_buffer->pop_back(&packet);
+    // if (packet == nullptr) break;
+
+    // // TODO(antonin): only update these if swapping actually happened?
+    // Parser *parser = this->get_parser("parser");
+    // Pipeline *ingress_mau = this->get_pipeline("ingress");
+
+    // phv = packet->get_phv();
+
+    // port_t ingress_port = packet->get_ingress_port();
+    // (void) ingress_port;
+    // BMLOG_DEBUG_PKT(*packet, "Processing packet received on port {}",
+    //                 ingress_port);
+
+    // auto ingress_packet_size =
+    //     packet->get_register(RegisterAccess::PACKET_LENGTH_REG_IDX);
+
+    // /* This looks like it comes out of the blue. However this is needed for
+    //    ingress cloning. The parser updates the buffer state (pops the parsed
+    //    headers) to make the deparser's job easier (the same buffer is
+    //    re-used). But for ingress cloning, the original packet is needed. This
+    //    kind of looks hacky though. Maybe a better solution would be to have the
+    //    parser leave the buffer unchanged, and move the pop logic to the
+    //    deparser. TODO? */
+    // const Packet::buffer_state_t packet_in_state = packet->save_buffer_state();
+    // parser->parse(packet.get());
+
+    // if (phv->has_field("standard_metadata.parser_error")) {
+    //   phv->get_field("standard_metadata.parser_error").set(
+    //       packet->get_error_code().get());
+    // }
+
+    // if (phv->has_field("standard_metadata.checksum_error")) {
+    //   phv->get_field("standard_metadata.checksum_error").set(
+    //        packet->get_checksum_error() ? 1 : 0);
+    // }
+
+    // ingress_mau->apply(packet.get());
+
+    // packet->reset_exit();
+
+    // Field &f_egress_spec = phv->get_field("standard_metadata.egress_spec");
+    // port_t egress_spec = f_egress_spec.get_uint();
+
+    // // Removed: ingress cloning, learning, resubmit, multicast
+
+    // port_t egress_port = egress_spec;
+    // BMLOG_DEBUG_PKT(*packet, "Egress port is {}", egress_port);
+
+    // if (egress_port == drop_port) {  // drop packet
+    //   BMLOG_DEBUG_PKT(*packet, "Dropping packet at the end of ingress");
+    //   continue;
+    // }
+    // auto &f_instance_type = phv->get_field("standard_metadata.instance_type");
+    // f_instance_type.set(PKT_INSTANCE_TYPE_NORMAL);
+
+    // enqueue(egress_port, std::move(packet));
   }
 }
 
 void
 SimpleSwitch::egress_thread(size_t worker_id) {
-  PHV *phv;
-
   while (1) {
-    std::unique_ptr<Packet> packet;
     size_t port;
     size_t priority;
-    egress_buffers.pop_back(worker_id, &port, &priority, &packet);
-    if (packet == nullptr) break;
+    std::unique_ptr<DirectPacket> dir_packet;
+    egress_buffers.pop_back(worker_id, &port, &priority, &dir_packet);
+    if (dir_packet == nullptr) break;
 
-    Deparser *deparser = this->get_deparser("deparser");
-    Pipeline *egress_mau = this->get_pipeline("egress");
+    dir_packet->standard_metadata.egress_port = port;
 
-    phv = packet->get_phv();
-
-    if (phv->has_field("intrinsic_metadata.egress_global_timestamp")) {
-      phv->get_field("intrinsic_metadata.egress_global_timestamp")
-          .set(get_ts().count());
-    }
-
-    if (with_queueing_metadata) {
-      auto enq_timestamp =
-          phv->get_field("queueing_metadata.enq_timestamp").get<ts_res::rep>();
-      phv->get_field("queueing_metadata.deq_timedelta").set(
-          get_ts().count() - enq_timestamp);
-      phv->get_field("queueing_metadata.deq_qdepth").set(
-          egress_buffers.size(port));
-      if (phv->has_field("queueing_metadata.qid")) {
-        auto &qid_f = phv->get_field("queueing_metadata.qid");
-        qid_f.set(nb_queues_per_port - 1 - priority);
-      }
-    }
-
-    phv->get_field("standard_metadata.egress_port").set(port);
-
-    Field &f_egress_spec = phv->get_field("standard_metadata.egress_spec");
     // When egress_spec == drop_port the packet will be dropped, thus
     // here we initialize egress_spec to a value different from drop_port.
-    f_egress_spec.set(drop_port + 1);
+    dir_packet->standard_metadata.egress_spec = drop_port + 1;
 
-    phv->get_field("standard_metadata.packet_length").set(
-        packet->get_register(RegisterAccess::PACKET_LENGTH_REG_IDX));
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("before egress");
+#endif
 
-    egress_mau->apply(packet.get());
+    // egress pipeline
+    egress_send_frame.apply(dir_packet);
 
-    auto clone_mirror_session_id =
-        RegisterAccess::get_clone_mirror_session_id(packet.get());
-    auto clone_field_list = RegisterAccess::get_clone_field_list(packet.get());
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("after egress pipeline");
+#endif
 
-    // EGRESS CLONING
-    if (clone_mirror_session_id) {
-      BMLOG_DEBUG_PKT(*packet, "Cloning packet at egress");
-      RegisterAccess::set_clone_mirror_session_id(packet.get(), 0);
-      RegisterAccess::set_clone_field_list(packet.get(), 0);
-      MirroringSessionConfig config;
-      // Extract the part of clone_mirror_session_id that contains the
-      // actual session id.
-      clone_mirror_session_id &= RegisterAccess::MIRROR_SESSION_ID_MASK;
-      bool is_session_configured = mirroring_get_session(
-          static_cast<mirror_id_t>(clone_mirror_session_id), &config);
-      if (is_session_configured) {
-        p4object_id_t field_list_id = clone_field_list;
-        std::unique_ptr<Packet> packet_copy =
-            packet->clone_with_phv_reset_metadata_ptr();
-        PHV *phv_copy = packet_copy->get_phv();
-        FieldList *field_list = this->get_field_list(field_list_id);
-        field_list->copy_fields_between_phvs(phv_copy, phv);
-        phv_copy->get_field("standard_metadata.instance_type")
-            .set(PKT_INSTANCE_TYPE_EGRESS_CLONE);
-        auto packet_size =
-            packet->get_register(RegisterAccess::PACKET_LENGTH_REG_IDX);
-        RegisterAccess::clear_all(packet_copy.get());
-        packet_copy->set_register(RegisterAccess::PACKET_LENGTH_REG_IDX,
-                                  packet_size);
-        if (config.mgid_valid) {
-          BMLOG_DEBUG_PKT(*packet, "Cloning packet to MGID {}", config.mgid);
-          multicast(packet_copy.get(), config.mgid);
-        }
-        if (config.egress_port_valid) {
-          BMLOG_DEBUG_PKT(*packet, "Cloning packet to egress port {}",
-                          config.egress_port);
-          enqueue(config.egress_port, std::move(packet_copy));
-        }
-      }
-    }
-
-    // TODO(antonin): should not be done like this in egress pipeline
-    port_t egress_spec = f_egress_spec.get_uint();
-    if (egress_spec == drop_port) {  // drop packet
-      BMLOG_DEBUG_PKT(*packet, "Dropping packet at the end of egress");
+    if (dir_packet->standard_metadata.egress_spec == drop_port) {  // drop packet
       continue;
     }
 
-    deparser->deparse(packet.get());
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("before deparsing");
+#endif
 
-    // RECIRCULATE
-    auto recirculate_flag = RegisterAccess::get_recirculate_flag(packet.get());
-    if (recirculate_flag) {
-      BMLOG_DEBUG_PKT(*packet, "Recirculating packet");
-      p4object_id_t field_list_id = recirculate_flag;
-      RegisterAccess::set_recirculate_flag(packet.get(), 0);
-      FieldList *field_list = this->get_field_list(field_list_id);
-      // TODO(antonin): just like for resubmit, there is no need for a copy
-      // here, but it is more convenient for this first prototype
-      std::unique_ptr<Packet> packet_copy = packet->clone_no_phv_ptr();
-      PHV *phv_copy = packet_copy->get_phv();
-      phv_copy->reset_metadata();
-      field_list->copy_fields_between_phvs(phv_copy, phv);
-      phv_copy->get_field("standard_metadata.instance_type")
-          .set(PKT_INSTANCE_TYPE_RECIRC);
-      size_t packet_size = packet_copy->get_data_size();
-      RegisterAccess::clear_all(packet_copy.get());
-      packet_copy->set_register(RegisterAccess::PACKET_LENGTH_REG_IDX,
-                                packet_size);
-      phv_copy->get_field("standard_metadata.packet_length").set(packet_size);
-      // TODO(antonin): really it may be better to create a new packet here or
-      // to fold this functionality into the Packet class?
-      packet_copy->set_ingress_length(packet_size);
-      input_buffer->push_front(
-          InputBuffer::PacketType::RECIRCULATE, std::move(packet_copy));
-      continue;
-    }
+    // deparse
+    direct_deparse(dir_packet);
+    dir_packet->update_checksum();
 
-    output_buffer.push_front(std::move(packet));
+#ifdef DIRECT_PACKET_LOGGING
+    dir_packet->log("after egress");
+#endif
+
+    output_buffer.push_front(std::move(dir_packet));
+
+    // OLD STUFF
+
+    // std::unique_ptr<Packet> packet;
+    // size_t port;
+    // size_t priority;
+    // egress_buffers.pop_back(worker_id, &port, &priority, &packet);
+    // if (packet == nullptr) break;
+
+    // Deparser *deparser = this->get_deparser("deparser");
+    // Pipeline *egress_mau = this->get_pipeline("egress");
+
+    // phv = packet->get_phv();
+
+    // if (phv->has_field("intrinsic_metadata.egress_global_timestamp")) {
+    //   phv->get_field("intrinsic_metadata.egress_global_timestamp")
+    //       .set(get_ts().count());
+    // }
+
+    // if (with_queueing_metadata) {
+    //   auto enq_timestamp =
+    //       phv->get_field("queueing_metadata.enq_timestamp").get<ts_res::rep>();
+    //   phv->get_field("queueing_metadata.deq_timedelta").set(
+    //       get_ts().count() - enq_timestamp);
+    //   phv->get_field("queueing_metadata.deq_qdepth").set(
+    //       egress_buffers.size(port));
+    //   if (phv->has_field("queueing_metadata.qid")) {
+    //     auto &qid_f = phv->get_field("queueing_metadata.qid");
+    //     qid_f.set(nb_queues_per_port - 1 - priority);
+    //   }
+    // }
+
+    // phv->get_field("standard_metadata.egress_port").set(port);
+
+    // Field &f_egress_spec = phv->get_field("standard_metadata.egress_spec");
+    // // When egress_spec == drop_port the packet will be dropped, thus
+    // // here we initialize egress_spec to a value different from drop_port.
+    // f_egress_spec.set(drop_port + 1);
+
+    // phv->get_field("standard_metadata.packet_length").set(
+    //     packet->get_register(RegisterAccess::PACKET_LENGTH_REG_IDX));
+
+    // egress_mau->apply(packet.get());
+
+    // // Removed: egress cloning
+
+    // // TODO(antonin): should not be done like this in egress pipeline
+    // port_t egress_spec = f_egress_spec.get_uint();
+    // if (egress_spec == drop_port) {  // drop packet
+    //   BMLOG_DEBUG_PKT(*packet, "Dropping packet at the end of egress");
+    //   continue;
+    // }
+
+    // deparser->deparse(packet.get());
+
+    // // Removed: recirculate
+
+    // output_buffer.push_front(std::move(packet));
   }
 }

@@ -42,7 +42,7 @@ shared_ptr<SimpleSwitchIf> get_handler(SimpleSwitch *sw);
 }  // namespace sswitch_runtime
 
 void exit_sig_handler(int signum) {
-  std::cout << "received signal: exiting...\n";
+  std::cout << "received signal " << signum << ": exiting...\n";
   exit(0);
 }
 
