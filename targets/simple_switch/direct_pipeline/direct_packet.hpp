@@ -60,73 +60,13 @@ struct DirectPacket {
   std::ofstream logfile;
   int packetOffsetInBits;
 
-  DirectPacket(uint16_t ingress_port, unsigned long id, const char *buffer, int len)
-    : id(id), bytes(buffer, buffer + len), packetOffsetInBits(0),
-      headers({0}), standard_metadata({0}), routing_metadata({0})
-  {
-    standard_metadata.ingress_port = ingress_port;
-  }
+  DirectPacket(uint16_t ingress_port, unsigned long id, const char *buffer, int len);
+  ~DirectPacket();
 
-  ~DirectPacket() {
-    if (logfile.is_open()) {
-      logfile.close();
-    }
-  }
-
-  void set_log_file(std::string path) {
-    logfile.open(path, std::ofstream::app);
-  }
-
-  void log(std::string note) {
-    if (!logfile.is_open()) {
-      return;
-    }
-
-    logfile << "=== PACKET " << id << " (" << note << ") ===\n";
-    logfile << "ingress_port = " << standard_metadata.ingress_port << std::endl;
-    logfile << "egress_spec  = " << standard_metadata.egress_spec << std::endl;
-    logfile << "egress_port  = " << standard_metadata.egress_port << std::endl;
-
-    logfile << std::hex;
-    logfile << "ethDst = " << headers.ethernet.dstAddr << std::endl;
-    logfile << "ethSrc = " << headers.ethernet.srcAddr << std::endl;
-    logfile << "ipDst  = " << headers.ipv4.dstAddr << std::endl;
-    logfile << "ipSrc  = " << headers.ipv4.srcAddr << std::endl;
-
-    for (int i = 0; i < bytes.size(); i++) {
-      logfile << std::setfill('0') << std::setw(2) << ((int)bytes[i] & 0xff) << ' ';
-    }
-    logfile << std::dec << std::endl;
-
-  }
-
-  bool verify_checksum() {
-    uint16_t *ipv4 = (uint16_t *)(bytes.data() + (48+48+16)/8);
-    uint32_t sum = 0;
-    for (int i = 0; i < 10; i++) {
-      sum += ntohs(ipv4[i]);
-    }
-
-    sum = (sum & 0xffff) + (sum >> 16);
-    sum = (sum & 0xffff) + (sum >> 16);
-    sum = (~sum) & 0xffff;
-
-    return sum == 0;
-  }
-
-  void update_checksum() {
-    uint16_t *ipv4 = (uint16_t *)(bytes.data() + (48+48+16)/8);
-    uint32_t sum = 0;
-    for (int i = 0; i < 10; i++) {
-      sum += ntohs(ipv4[i]) * (i != 5);
-    }
-
-    sum = (sum & 0xffff) + (sum >> 16);
-    sum = (sum & 0xffff) + (sum >> 16);
-    sum = (~sum) & 0xffff;
-
-    ipv4[5] = htons((uint16_t)sum);
-  }
+  void set_log_file(std::string path);
+  void log(std::string note);
+  bool verify_checksum();
+  void update_checksum();
 };
 
 #endif

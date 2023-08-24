@@ -85,6 +85,9 @@ class SimpleSwitch : public Switch {
   direct_ingress_ipv4_lpm_table ingress_ipv4_lpm;
   direct_egress_send_frame_table egress_send_frame;
 
+  bool direct_parse(std::unique_ptr<DirectPacket> &dir_packet);
+  bool direct_deparse(std::unique_ptr<DirectPacket> &dir_packet);
+
  private:
   using clock = std::chrono::high_resolution_clock;
 

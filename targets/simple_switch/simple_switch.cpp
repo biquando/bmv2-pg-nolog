@@ -472,13 +472,16 @@ SimpleSwitch::transmit_thread() {
     std::unique_ptr<DirectPacket> dir_packet;
     output_buffer.pop_back(&dir_packet);
     if (dir_packet == nullptr) break;
+#ifdef DIRECT_PACKET_LOGGING
     dir_packet->log("before transmission");
+#endif
     my_transmit_fn(dir_packet->standard_metadata.egress_port,
                    dir_packet->id,
                    dir_packet->bytes.data(),
                    dir_packet->bytes.size());
-
+#ifdef DIRECT_PACKET_LOGGING
     dir_packet->log("after transmission");
+#endif
   }
 }
 
@@ -566,6 +569,183 @@ SimpleSwitch::multicast(DirectPacket *packet, unsigned int mgid) {
   // }
 }
 
+
+
+DirectPacket::DirectPacket(uint16_t ingress_port, unsigned long id, const char *buffer, int len)
+  : id(id), bytes(buffer, buffer + len), packetOffsetInBits(0),
+    headers({0}), standard_metadata({0}), routing_metadata({0})
+{
+  standard_metadata.ingress_port = ingress_port;
+}
+
+DirectPacket::~DirectPacket() {
+  if (logfile.is_open()) {
+    logfile.close();
+  }
+}
+
+void DirectPacket::set_log_file(std::string path) {
+  logfile.open(path, std::ofstream::app);
+}
+
+void DirectPacket::log(std::string note) {
+  if (!logfile.is_open()) {
+    return;
+  }
+
+  logfile << "=== PACKET " << id << " (" << note << ") ===\n";
+  logfile << "ingress_port = " << standard_metadata.ingress_port << std::endl;
+  logfile << "egress_spec  = " << standard_metadata.egress_spec << std::endl;
+  logfile << "egress_port  = " << standard_metadata.egress_port << std::endl;
+
+  logfile << std::hex;
+  logfile << "ethDst = " << headers.ethernet.dstAddr << std::endl;
+  logfile << "ethSrc = " << headers.ethernet.srcAddr << std::endl;
+  logfile << "ipDst  = " << headers.ipv4.dstAddr << std::endl;
+  logfile << "ipSrc  = " << headers.ipv4.srcAddr << std::endl;
+
+  for (int i = 0; i < bytes.size(); i++) {
+    logfile << std::setfill('0') << std::setw(2) << ((int)bytes[i] & 0xff) << ' ';
+  }
+  logfile << std::dec << std::endl;
+
+}
+
+bool DirectPacket::verify_checksum() {
+  uint16_t *ipv4 = (uint16_t *)(bytes.data() + (48+48+16)/8);
+  uint32_t sum = 0;
+  for (int i = 0; i < 10; i++) {
+    sum += ntohs(ipv4[i]);
+  }
+
+  sum = (sum & 0xffff) + (sum >> 16);
+  sum = (sum & 0xffff) + (sum >> 16);
+  sum = (~sum) & 0xffff;
+
+  return sum == 0;
+}
+
+void DirectPacket::update_checksum() {
+  uint16_t *ipv4 = (uint16_t *)(bytes.data() + (48+48+16)/8);
+  uint32_t sum = 0;
+  for (int i = 0; i < 10; i++) {
+    sum += ntohs(ipv4[i]) * (i != 5);
+  }
+
+  sum = (sum & 0xffff) + (sum >> 16);
+  sum = (sum & 0xffff) + (sum >> 16);
+  sum = (~sum) & 0xffff;
+
+  ipv4[5] = htons((uint16_t)sum);
+}
+
+
+
+void direct_ingress_forward_table::add_entry(void *key, void *value) {
+  direct_ingress_forward_key *k = (direct_ingress_forward_key *) key;
+  direct_ingress_forward_value *v = (direct_ingress_forward_value *) value;
+
+  exact_routing_metadata_nhop_ipv4[k->routing_metadata_nhop_ipv4] = *v;
+}
+void direct_ingress_forward_table::apply(std::unique_ptr<DirectPacket> &dir_packet) {
+  direct_ingress_forward_key key = {
+    dir_packet->routing_metadata.nhop_ipv4,
+  };
+
+  auto it = exact_routing_metadata_nhop_ipv4.find(key.routing_metadata_nhop_ipv4);
+  direct_ingress_forward_value value;
+  if (it == exact_routing_metadata_nhop_ipv4.end()) { // if no entries match the key
+    value.action = direct_ingress_action__drop;  // TODO: allow user to set default action
+  } else {
+    value = it->second;
+  }
+
+  switch (value.action) {
+  case direct_ingress_action_set_dmac:
+    dir_packet->headers.ethernet.dstAddr = value.u.set_dmac.dmac;
+    break;
+  case direct_ingress_action__drop:
+  default:
+    dir_packet->standard_metadata.egress_spec = DIRECT_DROP_PORT;
+    break;
+  }
+}
+
+
+direct_ingress_ipv4_lpm_table::direct_ingress_ipv4_lpm_table() {
+  lpm = bf_lpm_trie_create(4, false);
+}
+direct_ingress_ipv4_lpm_table::~direct_ingress_ipv4_lpm_table() {
+  bf_lpm_trie_destroy(lpm);
+}
+void direct_ingress_ipv4_lpm_table::add_entry(void *key, void *value) {
+  direct_ingress_ipv4_lpm_key *k = (direct_ingress_ipv4_lpm_key *) key;
+  direct_ingress_ipv4_lpm_value *v = (direct_ingress_ipv4_lpm_value *) value;
+
+  int idx = lpm_values.size();
+  lpm_values.push_back(*v);
+
+  uint32_t prefix = htonl(k->headers_ipv4_dstAddr);
+  bf_lpm_trie_insert(lpm, (char *)&prefix, k->headers_ipv4_dstAddr_mask, idx);
+}
+void direct_ingress_ipv4_lpm_table::apply(std::unique_ptr<DirectPacket> &dir_packet) {
+  value_t idx = -1;
+  uint32_t prefix = htonl(dir_packet->headers.ipv4.dstAddr);
+  bf_lpm_trie_lookup(lpm, (char*)(&prefix), &idx);
+
+  direct_ingress_ipv4_lpm_value value;
+  if (idx < 0) {
+    value.action = direct_ingress_action__drop;
+  } else {
+    value = lpm_values[idx];
+  }
+
+  switch (value.action) {
+  case direct_ingress_action_set_nhop:
+    dir_packet->routing_metadata.nhop_ipv4 = value.u.set_nhop.nhop_ipv4;
+    dir_packet->standard_metadata.egress_spec = value.u.set_nhop.port;
+    dir_packet->headers.ipv4.ttl = dir_packet->headers.ipv4.ttl - 1;
+    break;
+  case direct_ingress_action__drop:
+  default:
+    dir_packet->standard_metadata.egress_spec = DIRECT_DROP_PORT;
+    break;
+  }
+}
+
+
+void direct_egress_send_frame_table::add_entry(void *key, void *value) {
+  direct_egress_send_frame_key *k = (direct_egress_send_frame_key *) key;
+  direct_egress_send_frame_value *v = (direct_egress_send_frame_value *) value;
+
+  exact_standard_metadata_egress_port[k->standard_metadata_egress_port] = *v;
+}
+void direct_egress_send_frame_table::apply(std::unique_ptr<DirectPacket> &dir_packet) {
+  direct_egress_send_frame_key key = {
+    dir_packet->standard_metadata.egress_port,
+  };
+
+  auto it = exact_standard_metadata_egress_port.find(key.standard_metadata_egress_port);
+  direct_egress_send_frame_value value;
+  if (it == exact_standard_metadata_egress_port.end()) { // if no entries match the key
+    value.action = direct_egress_action__drop;
+  } else {
+    value = it->second;
+  }
+
+  switch (value.action) {
+  case direct_egress_action_rewrite_mac:
+    dir_packet->headers.ethernet.srcAddr = value.u.rewrite_mac.smac;
+    break;
+  case direct_egress_action__drop:
+  default:
+    dir_packet->standard_metadata.egress_spec = DIRECT_DROP_PORT;
+    break;
+  }
+}
+
+
+
 #define BPF_MASK(t, w) ((((t)(1)) << (w)) - (t)1)
 #define BYTES(w) ((w) / 8)
 #define write_partial(a, w, s, v) do { *((uint8_t*)a) = ((*((uint8_t*)a)) & ~(BPF_MASK(uint8_t, w) << s)) | (v << s) ; } while (0)
@@ -584,7 +764,7 @@ bpf_htonll(uint64_t val) {
     return htonll(val);
 }
 
-static bool direct_parse(std::unique_ptr<DirectPacket> &dir_packet) {
+bool SimpleSwitch::direct_parse(std::unique_ptr<DirectPacket> &dir_packet) {
   unsigned char *pkt = (unsigned char*) dir_packet->bytes.data();
 
   auto &packetOffsetInBits = dir_packet->packetOffsetInBits;
@@ -659,7 +839,7 @@ reject:
   return false;
 }
 
-static bool direct_deparse(std::unique_ptr<DirectPacket> &dir_packet) {
+bool SimpleSwitch::direct_deparse(std::unique_ptr<DirectPacket> &dir_packet) {
   unsigned char *pkt = (unsigned char*) dir_packet->bytes.data();
   auto &packetOffsetInBits = dir_packet->packetOffsetInBits;
   auto &headers = dir_packet->headers;
