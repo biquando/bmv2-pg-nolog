@@ -34,6 +34,8 @@
 #include <vector>
 #include <functional>
 
+#include "from-ubpf/out.h"
+
 // TODO(antonin)
 // experimental support for priority queueing
 // to enable it, uncomment this flag
@@ -172,7 +174,7 @@ class SimpleSwitch : public Switch {
   ts_res get_ts() const;
 
   // TODO(antonin): switch to pass by value?
-  void enqueue(port_t egress_port, std::unique_ptr<Packet> &&packet);
+  void enqueue(port_t egress_port, std::unique_ptr<PacketContext> &&packet);
 
   void copy_field_list_and_set_type(
       const std::unique_ptr<Packet> &packet,
@@ -190,9 +192,9 @@ class SimpleSwitch : public Switch {
   // for these queues, the write operation is non-blocking and we drop the
   // packet if the queue is full
   size_t nb_queues_per_port;
-  bm::QueueingLogicPriRL<std::unique_ptr<Packet>, EgressThreadMapper>
+  bm::QueueingLogicPriRL<std::unique_ptr<PacketContext>, EgressThreadMapper>
   egress_buffers;
-  Queue<std::unique_ptr<Packet> > output_buffer;
+  Queue<std::unique_ptr<PacketContext> > output_buffer;
   TransmitFn my_transmit_fn;
   std::shared_ptr<McSimplePreLAG> pre;
   clock::time_point start;
